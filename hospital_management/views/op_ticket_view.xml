@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="op_list_view">
+        <field name="name">op.ticket.tree</field>
+        <field name="model">op.ticket</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="op_number"/>
+                <field name="token_number"/>
+                <field name="patient_id"/>
+                <field name="date"/>
+                <field name="doctor_id"/>
+                <field name="department_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="op_form_view">
+        <field name="name">op.ticket.form</field>
+        <field name="model">op.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="button_to_done" class="oe_highlight" invisible="state not in('draft')" string="Save" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="op_number" style="width:50%;"/>
+                    </h1>
+                    <group col="2">
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="age"/>
+                            <field name="dob"/>
+                            <field name="blood_group"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="token_number"/>
+                            <field name="doctor_id"/>
+                            <field name="department_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <data>
+        <record id="seq_op" model="ir.sequence">
+            <field name="name">OP Sequence</field>
+            <field name="code">op.ticket</field>
+            <field name="prefix">OP</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+
+    <record id="op_ticket_action" model="ir.actions.act_window">
+        <field name="name">OP Ticket</field>
+        <field name="res_model">op.ticket</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

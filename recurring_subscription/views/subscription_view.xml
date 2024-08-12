@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="subscription_action" model="ir.actions.act_window">
+        <field name="name">Subscription order</field>
+        <field name="res_model">subscription.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+     <record id="credit_action" model="ir.actions.act_window">
+        <field name="name">Subscription Credit</field>
+        <field name="res_model">subscription.credit</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="subscription_menu_root" name='Recurring Subscription' action="subscription_action"/>
+    <menuitem id="subscription_menu" name="Subscriptions" parent="subscription_menu_root">
+        <menuitem id="orders_submenu" name="Orders" action="subscription_action"/>
+        <menuitem id="credit_submenu" name="Credits" action="credit_action"/>
+    </menuitem>
+
+</odoo>

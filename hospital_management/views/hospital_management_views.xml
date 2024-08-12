@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="hospital_management_menu_action" name='Hospital Management'/>
+    <menuitem id="Reception_menu" name="Reception" parent="hospital_management_menu_action">
+        <menuitem id="op_ticket_submenu" name="OP Ticket" action="op_ticket_action"/>
+        <menuitem id="patients_submenu" name="Patients" action="patient_list"/>
+        <menuitem id="doctors_submenu" name="Doctors" action="doctor_list"/>
+    </menuitem>
+    <menuitem id="consultation_menu" name="Consultation" parent="hospital_management_menu_action"/>
+        <menuitem id="consultation_submenu" name="Consultations" parent="consultation_menu" action="consultation_action"/>
+
+
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+      <record model="ir.ui.view" id="consultation_form_view">
+        <field name="name">consultation.form1.form</field>
+        <field name="model">consultation.form1</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h1>
+                        <field name="op_number" style="width:50%;"/>
+                    </h1>
+                    <group col="2">
+                        <group>
+                            <field name="patient_id"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="token_number"/>
+                            <field name="doctor_id"/>
+                            <field name="department_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="consultation_action" model="ir.actions.act_window">
+        <field name="name">Consultation</field>
+        <field name="res_model">consultation.form1</field>
+        <field name="view_mode">form</field>
+    </record>
+
+</odoo>

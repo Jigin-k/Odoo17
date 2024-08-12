@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+       <record model="ir.ui.view" id="properties_list_view">
+        <field name="name">real.estate.tree</field>
+        <field name="model">real.estate</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="title"/>
+                <field name="postcode"/>
+                <field name="bed_rooms"/>
+                <field name="expected_price"/>
+                <field name="available_from"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+
+   <record model="ir.ui.view" id="properties_form_view">
+       <field name="name">real.estate.form</field>
+       <field name="model">real.estate</field>
+       <field name="arch" type="xml">
+           <form>
+               <sheet>
+                   <h1 ><field name="title" style="width:80%;"/></h1>
+
+                   <group col="2">
+                   <group>
+                       <field name="postcode"/>
+                       <field name="area"/>
+                   </group>
+                   <group>
+                       <field name="expected_price"/>
+                       <field name="available_from"/>
+                   </group>
+               </group>
+                   <notebook>
+                       <page string="description">
+                           <sheet>
+                               <group colspan="4">
+                                   <field name="bed_rooms" style="width:10%;"/>
+                                   <field name="facades" style="width:10%;"/>
+                                   <field name="status" style="width:10%;"/>
+                                   <field name="garden" />
+                                   <field name="garbage"/>
+                                   <field name="description"/>
+                               </group>
+                           </sheet>
+                       </page>
+                   </notebook>
+               </sheet>
+           </form>
+       </field>
+   </record>
+
+
+
+<record id="real_estate_action" model="ir.actions.act_window">
+    <field name="name">Real Estate</field>
+    <field name="res_model">real.estate</field>
+    <field name="view_mode">tree,kanban,form</field>
+</record>
+    <menuitem id="real_state_menu_action" name = 'Real Estate' action="real_estate_action"/>
+    <menuitem id="test_menu_root" name="Properties" parent="real_state_menu_action">
+      <menuitem id="test_first_level_menu" name="Land" action="real_estate_action"/>
+    </menuitem>
+
+
+
+</odoo>
