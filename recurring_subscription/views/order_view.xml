@@ -10,7 +10,7 @@
                 <field name="establishment_id"/>
                 <field name="order_date"/>
                 <field name="name"/>
-                <field name="customer_id"/>
+                <field name="partner_id"/>
                 <field name="product_id"/>
                 <field name="company_id"/>
             </tree>
@@ -24,18 +24,20 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="button_to_confirm" class="oe_highlight" invisible="state not in('draft')" string="Confirm" type="object"/>
-                    <button name="button_to_cancel" class="oe_highlight" invisible="state in('cancel')" string="Cancel" type="object"/>
+                    <button name="button_to_confirm" class="oe_highlight" invisible="state not in('draft')"
+                            string="Confirm" type="object"/>
+                    <button name="button_to_cancel" class="oe_highlight" invisible="state in('cancel')" string="Cancel"
+                            type="object"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done,cancel"/>
                 </header>
                 <sheet>
                     <h1>
-                    <field name="order_id"/>
+                        <field name="order_id"/>
                     </h1>
                     <group col="2">
                         <group>
                             <field name="name"/>
-                            <field name="customer_id"/>
+                            <field name="partner_id"/>
                             <field name="product_id"/>
                             <field name="is_lead"/>
                             <field name="description"/>
@@ -70,11 +72,11 @@
             <field name="padding">10</field>
         </record>
     </data>
-     <data>
-      <record id="adding_subscription_product" model="product.template">
-        <field name="name">Demo Subscription Product</field>
-        <field name="detailed_type">service</field>
-        <field name="default_code">Subscription Credit</field>
-      </record>
+    <data>
+        <record id="adding_subscription_product" model="product.template">
+            <field name="name">Demo Subscription Product</field>
+            <field name="detailed_type">service</field>
+            <field name="default_code">Subscription Credit</field>
+        </record>
     </data>
 </odoo>

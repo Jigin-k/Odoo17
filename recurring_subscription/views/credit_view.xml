@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
-                <field name="customer_id"/>
+                <field name="partner_id"/>
                 <field name="establishment_id"/>
                 <field name="credit_amount"/>
                 <field name="start_date"/>
@@ -32,12 +32,12 @@
                 <sheet>
                     <group col="2">
                         <group>
+                            <field name="establishment_id" />
                             <field name="name"/>
-                            <field name="customer_id"/>
+                            <field name="partner_id"/>
                             <field name="product_id"/>
                         </group>
                         <group>
-                            <field name="establishment_id" />
                             <field name="company_id"/>
                             <field name="credit_amount"/>
                             <field name="start_date"/>

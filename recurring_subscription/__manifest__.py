@@ -1,7 +1,7 @@
 {
     'name': "Recurring Subscription",
     'sequence':'-10',
-# 'version': '1.0',
+     'version': '1.0',
     'depends': ['base','sale'],
 #     'author': "Author Name",
 #     'category': 'Category',
