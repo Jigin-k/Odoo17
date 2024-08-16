@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="credit_list_view">
+        <field name="name">subscription.credit.tree</field>
+        <field name="model">subscription.credit</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="establishment_id"/>
+                <field name="credit_amount"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="company_id"/>
+                <field name="due_date"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="credit_form_view">
+        <field name="name">subscription.credit.form</field>
+        <field name="model">subscription.credit</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="pending,confirmed,first approved,fully approved,rejected"
+                           options="{'clickable': 1}"/>
+                </header>
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="establishment_id" />
+                            <field name="partner_id"/>
+                            <field name="product_id"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="credit_amount"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="due_date"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_subscription_bill_tree" model="ir.ui.view">
+        <field name="name">subscription.bill.tree</field>
+        <field name="model">subscription.bill</field>
+        <field name="arch" type="xml">
+            <tree string="Subscription Bills">
+                <field name="name"/>
+                <field name="simulation"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="customer_ids" widget="many2many_tags"/>
+                <field name="active"/>
+                <field name="subscription_ids" widget="many2many_tags"/>
+                <field name="total_credit_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_subscription_bill_form" model="ir.ui.view">
+        <field name="name">subscription.bill.form</field>
+        <field name="model">subscription.bill</field>
+        <field name="arch" type="xml">
+            <form string="Subscription Bill">
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" type="object" name="subscription_orders"
+                                icon="fa-diamond">
+                            <field string="Orders" name="subscription_order_ids" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="simulation"/>
+                            <field name="customer_ids" widget="many2many_tags"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="subscription_ids" widget="many2many_tags"/>
+                            <field name="total_credit_amount"/>
+                        </group>
+                    </group>
+                </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+</odoo>
