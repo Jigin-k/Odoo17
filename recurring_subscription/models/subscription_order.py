@@ -30,7 +30,7 @@ class SubscriptionOrder(models.Model):
     description = fields.Text(string="Description")
     terms_conditions = fields.Html('Terms And Conditions')
     product_id = fields.Many2one("product.template", string="Product")
-    company_id = fields.Many2one("res.company", string="Company ID")
+    company_id = fields.Many2one("res.company",string="Company ID", default=lambda self: self.env.company)
     state = fields.Selection(selection=[
         ('draft', 'Draft'),
         ('confirm', 'Confirm'),
@@ -69,4 +69,11 @@ class SubscriptionOrder(models.Model):
 
     def action_cancel(self):
         self.write({'state': "cancel"})
+
+    # @api.onchange('establishment_id')
+    # def _onchange_establishment_id(self):
+    #     partner = self.env['res.partner'].search([('establishment_id','=',self.establishment_id)])
+    #     self.partner_id =
+
+
 

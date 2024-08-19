@@ -16,16 +16,10 @@
         <field name="res_model">subscription.bill</field>
         <field name="view_mode">tree,form</field>
     </record>
-   <record id="partner_action" model="ir.actions.act_window">
-       <field name="name">Partner Account</field>
-       <field name="res_model">partner.account</field>
-       <field name="view_mode">tree,form</field>
-   </record>
     <menuitem id="subscription_menu_root" name='Recurring Subscription' action="subscription_action"/>
     <menuitem id="subscription_menu" name="Subscriptions" parent="subscription_menu_root">
         <menuitem id="orders_submenu" name="Orders" action="subscription_action"/>
         <menuitem id="credit_submenu" name="Credits" action="credit_action"/>
-        <menuitem id="partner_submenu" name="Partner Account" action="partner_action"/>
     </menuitem>
     <menuitem id="billing_menu" name="Billing" parent="subscription_menu_root">
             <menuitem id="billing_submenu" name="Billing" action="billing_action"/>

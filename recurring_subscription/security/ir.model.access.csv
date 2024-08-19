@@ -2,6 +2,5 @@ id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_subscription_order,access.subscription.order,model_subscription_order,base.group_user,1,1,1,1
 access_subscription_credit,access.subscription.credit,model_subscription_credit,base.group_user,1,1,1,1
 access_subscription_bill,access.subscription.bill,model_subscription_bill,base.group_user,1,1,1,1
-access_partner_account,access.partner.account,model_partner_account,base.group_user,1,1,1,1
 
 

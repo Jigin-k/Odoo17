@@ -6,4 +6,8 @@
             <field name="prefix">RS</field>
             <field name="padding">10</field>
         </record>
+    <record id="partner_account_id" model="ir.sequence">
+            <field name="name">Account_id</field>
+            <field name="code">res.partner</field>
+        </record>
 </odoo>
