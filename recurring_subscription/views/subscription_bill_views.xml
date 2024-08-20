@@ -11,7 +11,7 @@
                 <field name="end_date"/>
                 <field name="customer_ids" widget="many2many_tags"/>
                 <field name="active"/>
-                <field name="subscription_ids" widget="many2many_tags"/>
+                <!--                <field name="subscription_ids" widget="many2many_tags"/>-->
                 <field name="total_credit_amount"/>
             </tree>
         </field>
@@ -22,11 +22,17 @@
         <field name="model">subscription.bill</field>
         <field name="arch" type="xml">
             <form string="Subscription Bill">
+                <header>
+                    <button name="action_create_invoice" type="object"
+                            string="Create Invoice" class="btn-primary"/>
+                </header>
                 <sheet>
                     <div name="button_box" position="inside">
-                        <button class="oe_stat_button" type="object" name="subscription_orders"
+                        <button class="oe_stat_button" type="object"
+                                name="subscription_orders"
                                 icon="fa-diamond">
-                            <field string="Orders" name="subscription_order_ids" widget="statinfo"/>
+                            <field string="Orders" name="subscription_order_ids"
+                                   widget="statinfo"/>
                         </button>
                     </div>
                     <group>
@@ -39,12 +45,18 @@
                         <group>
                             <field name="start_date"/>
                             <field name="end_date"/>
-                            <field name="subscription_ids" widget="many2many_tags"/>
+                            <!--                            <field name="subscription_ids"-->
+                            <!--                                   widget="many2many_tags"/>-->
                             <field name="total_credit_amount"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page>
+                            <field name="subscription_order_ids"/>
+                        </page>
+                    </notebook>
                 </sheet>
-                 <div class="oe_chatter">
+                <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
                     <field name="message_ids" widget="mail_thread"/>
                 </div>
