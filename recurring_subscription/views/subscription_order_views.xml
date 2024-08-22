@@ -75,9 +75,9 @@
                         </group>
                     </group>
                     <notebook>
-                        <!--                        <page string="Bill Scheduled">-->
-                        <!--                            <field name="bill_ids"/>-->
-                        <!--                        </page>-->
+                        <page string="Credits">
+                            <field name="subscription_credit_ids"/>
+                        </page>
                         <page string="Terms and Conditions">
                             <field name="description" widget="html"/>
                         </page>
@@ -90,11 +90,9 @@
             </form>
         </field>
     </record>
-    <data>
-        <record id="adding_subscription_product" model="product.template">
-            <field name="name">Demo Subscription Product</field>
-            <field name="detailed_type">service</field>
-            <field name="default_code">Subscription Credit</field>
-        </record>
-    </data>
+        <record id="subscription_action" model="ir.actions.act_window">
+        <field name="name">Subscription order</field>
+        <field name="res_model">subscription.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 </odoo>

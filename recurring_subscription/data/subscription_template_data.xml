@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="subscription_order_mail" model="mail.template">
+            <field name="name">Subscription Order Mail</field>
+            <field name="model_id"
+                   ref="recurring_subscription.model_subscription_order"/>
+            <field name="email_from">{{ object.company_id.email }}</field>
+            <field name="email_to">{{object.partner_id.email}}</field>
+            <field name="subject">Mail Template: Demo Mail</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <div style="justify-content: center;background-color: #736B67; padding:0.6rem;padding-left: 35px;text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;width:40%">
+                        <h2>
+                            Hi,
+                            <t t-out="object.partner_id.name.split(' ')[0]"/>
+                        </h2>
+                        <div>
+                            <h3>
+                                Congratulations, Your Subscription has been
+                                Confirmed.
+                            </h3>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    Thank you for your subscription.
+                    <br/>
+                    <t t-out="object.company_id.name"/>
+                    <br/>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

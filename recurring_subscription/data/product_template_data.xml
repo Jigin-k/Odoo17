@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="adding_subscription_product" model="product.template">
+            <field name="name">Demo Subscription Product</field>
+            <field name="detailed_type">service</field>
+            <field name="default_code">Subscription Credit</field>
+        </record>
+    </data>
+</odoo>

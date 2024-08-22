@@ -6,14 +6,13 @@
         <field name="model">subscription.credit</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
+                <field name="order_id"/>
                 <field name="partner_id"/>
-                <field name="establishment_id"/>
+                <field name="title"/>
                 <field name="credit_amount"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
                 <field name="company_id"/>
-                <field name="due_date"/>
             </tree>
         </field>
     </record>
@@ -32,17 +31,16 @@
                 <sheet>
                     <group col="2">
                         <group>
-                            <field name="establishment_id"/>
+                            <field name="order_id"/>
                             <field name="partner_id"/>
                             <field name="product_id"/>
                         </group>
                         <group>
-                            <field name="name"/>
+                            <field name="title"/>
                             <field name="company_id"/>
                             <field name="credit_amount"/>
                             <field name="start_date"/>
                             <field name="end_date"/>
-                            <field name="due_date"/>
                         </group>
                     </group>
                 </sheet>
@@ -52,6 +50,11 @@
                 </div>
             </form>
         </field>
+    </record>
+       <record id="credit_action" model="ir.actions.act_window">
+        <field name="name">Subscription Credit</field>
+        <field name="res_model">subscription.credit</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
 </odoo>

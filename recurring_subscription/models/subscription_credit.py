@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
-from odoo.tools import date_utils
+from odoo import api, fields, models
+
 
 
 class SubscriptionCredit(models.Model):
@@ -9,26 +9,18 @@ class SubscriptionCredit(models.Model):
     _description = "Subscription Credit"
     _inherit = "mail.thread"
 
-    name = fields.Char(string="Subscription Name",
-                       related="establishment_id.name", readonly=False)
+    order_id = fields.Many2one("subscription.order", string="Subscription Name",
+                       readonly=False)
     partner_id = fields.Many2one("res.partner", string="Customer",
-                                 related="establishment_id.partner_id",
                                  readonly=False)
     credit_amount = fields.Integer(string="Credit Amount",
-                                   related="establishment_id.recurring_price",
                                    readonly=False)
-    start_date = fields.Date('Start Date',
-                             related="establishment_id.order_date")
-    end_date = fields.Date(string='End Date',
-                           related="establishment_id.next_billing")
-    product_id = fields.Many2one("product.template", string="Product",
-                                 related="establishment_id.product_id")
+    start_date = fields.Date('Start Date')
+    end_date = fields.Date(string='End Date')
+    product_id = fields.Many2one("product.product", string="Product")
     company_id = fields.Many2one("res.company", string="Company ID",
-                                 related="establishment_id.company_id")
-    establishment_id = fields.Many2one("subscription.order",
-                                       string='Establishment ID')
-    due_date = fields.Date(string='Due Date',
-                           related="establishment_id.due_date")
+                                 related="order_id.company_id")
+    title = fields.Char(string='Name')
     state = fields.Selection(selection=[
         ('pending', 'Pending'),
         ('confirmed', 'Confirmed'),
@@ -36,21 +28,14 @@ class SubscriptionCredit(models.Model):
         ('fully_approved', 'Fully Approved'),
         ('rejected', 'Rejected')
     ], string='Status', clickable=True, tracking=True)
+    bill_id = fields.Many2one("subscription.bill", string="Bills",  related="order_id.bill_id")
 
-    @api.onchange('start_date')
-    def _onchange_new_date(self):
-        """
-        To calculate end date based on start date.
-        """
-        for rec in self:
-            if rec.start_date:
-                rec.end_date = date_utils.add(rec.start_date, days=15)
 
     @api.onchange('credit_amount')
     def _onchange_credit_amount(self):
         """
         If credit amount is greater than recurring price all the records will bw none.
         """
-        if self.credit_amount and self.establishment_id:
-            if self.credit_amount > self.establishment_id.recurring_price:
-                self.establishment_id = False
+        if self.credit_amount and self.order_id:
+            if self.credit_amount > self.order_id.recurring_price:
+                self.order_id = False

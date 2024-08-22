@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-        <record id="seq_order_id" model="ir.sequence">
-            <field name="name">Order_id</field>
-            <field name="code">subscription.order</field>
-            <field name="prefix">RS</field>
-            <field name="padding">10</field>
-        </record>
-
+    <record id="seq_order_id" model="ir.sequence">
+        <field name="name">Order_id</field>
+        <field name="code">subscription.order</field>
+        <field name="prefix">RS</field>
+        <field name="padding">10</field>
+    </record>
 </odoo>

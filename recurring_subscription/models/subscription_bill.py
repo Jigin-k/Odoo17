@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-import dateutil.utils
-
-from odoo import api, fields, models
+from odoo import api, Command, fields, models
 
 
 class SubscriptionBill(models.Model):
@@ -15,16 +13,19 @@ class SubscriptionBill(models.Model):
     end_date = fields.Date(string="End Date")
     customer_ids = fields.Many2many("res.partner", string="Customers")
     active = fields.Boolean(string="Active", default=True)
-    # subscription_ids = fields.Many2many("subscription.order",
-    #                                     string="Subscriptions")
     total_credit_amount = fields.Float(string="Total Credit Amount",
                                        compute='_compute_total_credit')
     subscription_order_ids = fields.One2many("subscription.order",
                                              inverse_name='bill_id',
                                              string="Subscription Order")
+    credit_ids = fields.One2many("subscription.credit", inverse_name="bill_id",
+                              string="Credits" )
 
 
     def subscription_orders(self):
+        """
+        For creating smart button to view the corresponding orders in scheduled bill.
+        """
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
@@ -37,56 +38,70 @@ class SubscriptionBill(models.Model):
 
     @api.depends('subscription_order_ids.recurring_price')
     def _compute_total_credit(self):
+        """
+        To compute th total credits applied in the corresponding bills in the scheduled bill.
+        """
         for rec in self:
-            rec.total_credit_amount = sum(rec.subscription_order_ids.filtered(
-                lambda order: order.state == 'confirm').mapped(
-                'recurring_price'))
+            rec.total_credit_amount = sum(rec.credit_ids.mapped(
+                'credit_amount'))
 
     def action_create_invoice(self):
-        print(self)
-        global invoices
-        #self.ensure_one()
+        """
+        To create Invoice for the subscription orders in the scheduled bill.
+        """
+        self.ensure_one()
         invoice_vals_list = []
+
         for order in self.subscription_order_ids.filtered(
                 lambda orders: orders.state == 'confirm'):
+            lines = [Command.create({
+                'name': order.name,
+                'product_id': order.product_id.id,
+                'quantity': 1,
+                'price_unit': order.recurring_price,
+            })]
+            print(lines)
+            for credit in self.credit_ids:
+                if credit.order_id.id==order.id:
+                    lines.append(Command.create({
+                        'name': credit.title,
+                        'product_id': credit.product_id.id,
+                        'quantity': 1,
+                        'price_unit': -credit.credit_amount,
+                        'tax_ids': False
+                }))
             invoice_vals = {
                 'move_type': 'out_invoice',
                 'partner_id': order.partner_id.id,
                 'invoice_date': fields.Date.context_today(self),
-                'invoice_line_ids': [(0, 0, {
-                    'product_id': order.product_id.id,
-                    'name': order.name,
-                    'quantity': 1,
-                    'price_unit': order.recurring_price
-                })],
+                'invoice_line_ids': lines
             }
             invoice_vals_list.append(invoice_vals)
-            print(invoice_vals)
+
         if invoice_vals_list:
-            self.active = False
             invoices = self.env['account.move'].create(invoice_vals_list)
-            # self.env('subscription.order').search([()])
+            self.active = False
+            self.subscription_order_ids.filtered(
+                lambda orders: orders.state == 'confirm').write({'state': 'done'})
 
+            return {
+                'type': 'ir.actions.act_window',
+                'name': 'Invoices',
+                'view_mode': 'tree,form',
+                 'res_model': 'account.move',
+                'domain': [('id', 'in', invoices.ids)],
+                'context': {'create': False},
+             }
 
-
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Invoices',
-            'view_mode': 'tree,form',
-            'res_model': 'account.move',
-            'domain': [('id', 'in', invoices.ids)],
-            'context': {'create': False},
-        }
-
-    # def scheduled_action_create_invoice(self):
-    #     print('hello')
-
-        # if self.end_date:
-        #     print('heytrytrereds')
-        # if self.end_date < datetime.date.today():
-        #     print(datetime.today())
-        #     def action_create_invoice():
-        #         action_create_invoice()
+    def scheduled_action_create_invoice(self):
+        """
+        Scheduled action to create invoices for the expired bill schedules.
+        """
+        expired_bills = self.search([
+            ('end_date', '<', fields.Date.today())
+        ])
+        for bill in expired_bills:
+            bill.action_create_invoice()
 
 
 

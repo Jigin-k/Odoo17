@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import api, models, fields, _
 import re
 from odoo.exceptions import ValidationError
 from odoo.tools import date_utils
-
 
 def _validate_establishment_id(est_id):
     reg_ex = r'^(?=(?:[^A-Za-z]*[A-Za-z]){3})(?=(?:[^\d]*\d){3})(?=(?:[^\W_]*[\W_]){2})[A-Za-z\d\W_]{8}$'
@@ -15,7 +14,7 @@ class SubscriptionOrder(models.Model):
     _name = "subscription.order"
     _description = "Subscription Order"
     _inherit = ["mail.thread"]
-    _rec_name = "establishment_id"
+    # _rec_name = "establishment_id"
 
     order_id = fields.Char(string='Order ID', readonly=True, default=_('New'),
                            copy=False)
@@ -41,6 +40,22 @@ class SubscriptionOrder(models.Model):
     ], string='Status', required=True,
         tracking=True, copy=False, default='draft')
     bill_id = fields.Many2one("subscription.bill", string="Bills")
+    subscription_credit_ids = fields.One2many("subscription.credit",
+                                              inverse_name="order_id",
+                                              String="Subscription orders",
+                                              compute="_compute_subscription_credit_ids")
+
+    @api.depends('due_date')
+    def _compute_subscription_credit_ids(self):
+        """
+        To show only the corresponding credits to the specific partner
+        and also period of credit is less than due date of subscription order.
+        """
+        for rec in self:
+            credits_ids = (rec.subscription_credit_ids.search
+                           ([('end_date', '<', self.due_date),
+                             ('partner_id', '=', self.partner_id.id)]))
+            self.subscription_credit_ids = credits_ids
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -60,7 +75,7 @@ class SubscriptionOrder(models.Model):
         """
         if self.order_date:
             self.next_billing = date_utils.add(self.order_date, months=1)
-            self.due_date = date_utils.add(self.next_billing, days=15)
+            self.due_date = date_utils.add(self.order_date, days=15)
 
     @api.constrains('establishment_id')
     def _check_establishment_id(self):
@@ -73,9 +88,15 @@ class SubscriptionOrder(models.Model):
                     "Establishment ID contains exactly 3 alphabets, 3 numbers, and 2 special characters.")
 
     def action_confirm(self):
+        """
+        On clicking confirm button state changes to Confirm state.
+        """
         self.update({'state': "confirm"})
 
     def action_cancel(self):
+        """
+        On clicking cancel button state changes to cancel state.
+        """
         self.update({'state': "cancel"})
 
     @api.onchange('establishment_id')
@@ -90,3 +111,16 @@ class SubscriptionOrder(models.Model):
         else:
             raise ValidationError(
                 "No Customer Found With Given Establishment ID")
+
+    def send_order_emails(self):
+        """
+        Scheduled action to send emails to partners whose subscription orders is in Done state.
+        """
+        template = self.env.ref(
+            'recurring_subscription.subscription_order_mail')
+        done_orders = self.search([('state', '=', 'done')])
+        print(done_orders)
+        for order in done_orders:
+            print(order.id)
+            template.send_mail(order.id, force_send=True)
+        return True
