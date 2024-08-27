@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <header>
                 <button name="action_project" type="object" string="Create Project"/>
+                <button name="action_update_project" type="object" string="Update Project"/>
             </header>
         </field>
     </record>
