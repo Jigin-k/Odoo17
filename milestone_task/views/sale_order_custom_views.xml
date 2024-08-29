@@ -1,13 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
 <odoo>
     <record model="ir.ui.view" id="sale_order_view_inherit1">
         <field name="name">sale.order.view.inherit</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+                  <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" name="order_tasks"
+                        icon="fa-diamond" invisible="task_count == 0">
+                        <field string="Tasks" name="task_count" widget="statinfo"/>
+
+                    </button>
+                </div>
             <header>
-                <button name="action_project" type="object" string="Create Project"/>
+                <button name="action_project" type="object" string="Create Project" invisible="is_project_button"/>
                 <button name="action_update_project" type="object" string="Update Project"/>
+                <field name="is_project_button" invisible="1"/>
             </header>
+
         </field>
     </record>
 </odoo>

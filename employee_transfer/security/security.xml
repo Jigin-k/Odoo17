@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.module.category" id="employee_transfer_access">
+        <field name="name">Employee Transfer</field>
+    </record>
+    <record id="employee_transfer_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id"
+               ref="employee_transfer.employee_transfer_access"/>
+    </record>
+    <record id="employee_transfer_admin" model="res.groups">
+        <field name="name">Admin</field>
+        <field name="category_id"
+               ref="employee_transfer.employee_transfer_access"/>
+    </record>
+</odoo>
