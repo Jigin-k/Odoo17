@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
 <odoo>
     <data>
         <record model="ir.ui.view" id="transfer_list_view">
@@ -9,7 +11,11 @@
                     <field name="company_id"/>
                     <field name="request_date"/>
                     <field name="to_company_id"/>
-                    <field name="state"/>
+                    <field name="state" widget="badge"
+                           decoration-primary="state=='to_approve'"
+                           decoration-success="state=='approved'"
+                           decoration-info="state=='draft'"
+                           decoration-danger="state=='rejected'"/>
                 </tree>
             </field>
         </record>
@@ -20,11 +26,19 @@
                 <form>
                     <header>
                         <button name="action_send_request" class="oe_highlight"
-                                string="Send Request" type="object" groups="employee_transfer.employee_transfer_user"/>
+                                string="Send Request" type="object"
+                                groups="employee_transfer.employee_transfer_user"
+                                invisible="state not in('draft')"/>
                         <button name="action_approve" class="oe_highlight"
-                                string="Approve" type="object" groups="employee_transfer.employee_transfer_admin"/>
+                                string="Approve" type="object"
+                                groups="employee_transfer.employee_transfer_admin"
+                                invisible="state not in('draft','to_approve')"/>
+                        <button name="action_reject" class="oe_highlight"
+                                string="Reject" type="object"
+                                groups="employee_transfer.employee_transfer_admin"
+                                invisible="state not in('to_approve')"/>
                         <field name="state" widget="statusbar"
-                               statusbar_visible="draft,to_approve,approved" options="{'clickable':'1'}"/>
+                               statusbar_visible="draft,to_approve,approved"/>
                     </header>
                     <sheet>
                         <group col="2">
@@ -35,6 +49,8 @@
                             <group>
                                 <field name="company_id"/>
                                 <field name="to_company_id"/>
+                                <field name="rejection_reason"
+                                       invisible="state not in('rejected')"/>
                             </group>
                         </group>
                         <notebook>

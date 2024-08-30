@@ -13,4 +13,5 @@
         <field name="category_id"
                ref="employee_transfer.employee_transfer_access"/>
     </record>
+
 </odoo>

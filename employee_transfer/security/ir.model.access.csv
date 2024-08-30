@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_employee_transfer_user,access.employee.transfer,model_employee_transfer,employee_transfer.employee_transfer_user,1,1,1,0
 access_employee_transfer_admin,access.employee.transfer,model_employee_transfer,employee_transfer.employee_transfer_admin,1,1,1,1
+access_rejection_wizard,access.rejection.wizard,model_rejection_wizard,employee_transfer.employee_transfer_admin,1,1,1,1
+
