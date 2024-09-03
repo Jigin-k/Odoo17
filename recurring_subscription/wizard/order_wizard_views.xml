@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="order_wizard_form">
+            <field name="name">order.wizard.view.form</field>
+            <field name="model">order.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="subscription" widget="many2many_tags"/>
+                    </group>
+                    <group>
+                        <field name="period"/>
+                    </group>
+
+                    <footer>
+                        <button name="action_done" string="Submit" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary"
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+        <record id="order_wizard_action" model="ir.actions.act_window">
+        <field name="name">Subscription Order Reports</field>
+        <field name="res_model">order.wizard</field>
+        <field name="view_mode">form</field>
+         <field name="target">new</field>
+    </record>
+</odoo>

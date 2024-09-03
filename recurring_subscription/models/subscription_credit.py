@@ -9,7 +9,8 @@ class SubscriptionCredit(models.Model):
     _description = "Subscription Credit"
     _inherit = "mail.thread"
 
-    order_id = fields.Many2one("subscription.order", string="Subscription Name",
+    order_id = fields.Many2one("subscription.order",
+                               string="Subscription Name",
                        readonly=False)
     partner_id = fields.Many2one("res.partner", string="Customer",
                                  readonly=False)
@@ -28,13 +29,15 @@ class SubscriptionCredit(models.Model):
         ('fully_approved', 'Fully Approved'),
         ('rejected', 'Rejected')
     ], string='Status', clickable=True, tracking=True)
-    bill_id = fields.Many2one("subscription.bill", string="Bills",  related="order_id.bill_id")
+    bill_id = fields.Many2one("subscription.bill", string="Bills",
+                              related="order_id.bill_id")
 
 
     @api.onchange('credit_amount')
     def _onchange_credit_amount(self):
         """
-        If credit amount is greater than recurring price all the records will bw none.
+        If credit amount is greater than recurring price all the
+         records will bw none.
         """
         if self.credit_amount and self.order_id:
             if self.credit_amount > self.order_id.recurring_price:

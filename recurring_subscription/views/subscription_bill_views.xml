@@ -24,7 +24,9 @@
                 <header>
                     <button name="action_create_invoice" type="object"
                             string="Create Invoice" class="btn-primary"/>
-                </header>
+
+                        <button name="action_button" type="object" string="Button"/>
+                 </header>
                 <sheet>
                     <div name="button_box" position="inside">
                         <button class="oe_stat_button" type="object"

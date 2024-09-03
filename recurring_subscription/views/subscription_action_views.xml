@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <menuitem id="subscription_menu_root" name='Recurring Subscription'
-              action="subscription_action"/>
+              action="subscription_action" />
     <menuitem id="subscription_menu" name="Subscriptions"
               parent="subscription_menu_root">
         <menuitem id="orders_submenu" name="Orders"
                   action="subscription_action"/>
     </menuitem>
-    <menuitem id="billing_menu" name="Configuration" parent="subscription_menu_root">
+    <menuitem id="report_menu" name="Reports"
+              parent="subscription_menu_root" >
+        <menuitem id="subscription_report_submenu" name="Subscription Report"
+                  action="order_wizard_action"/>
+    </menuitem>
+    <menuitem id="billing_menu" name="Configuration" parent="subscription_menu_root" >
         <menuitem id="credit_submenu" name="Credits" action="credit_action"/>
         <menuitem id="billing_submenu" name="Billing" action="billing_action"/>
     </menuitem>

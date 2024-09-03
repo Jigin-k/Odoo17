@@ -85,7 +85,8 @@ class SubscriptionOrder(models.Model):
         if self.establishment_id:
             if not _validate_establishment_id(self.establishment_id):
                 raise ValidationError(
-                    "Establishment ID contains exactly 3 alphabets, 3 numbers, and 2 special characters.")
+                    "Establishment ID contains exactly 3 alphabets, "
+                    "3 numbers, and 2 special characters.")
 
     def action_confirm(self):
         """
@@ -102,7 +103,8 @@ class SubscriptionOrder(models.Model):
     @api.onchange('establishment_id')
     def _onchange_establishment_id(self):
         """
-        To Auto Populate Partner when partner having corresponding Establishment ID is given.
+        To Auto Populate Partner when partner having corresponding
+        Establishment ID is given.
         """
         partner = self.env['res.partner'].search(
             [('establishment_id', '=', self.establishment_id)], limit=1)
@@ -114,12 +116,12 @@ class SubscriptionOrder(models.Model):
 
     def send_order_emails(self):
         """
-        Scheduled action to send emails to partners whose subscription orders is in Done state.
+        Scheduled action to send emails to partners whose subscription
+         orders is in Done state.
         """
         template = self.env.ref(
             'recurring_subscription.subscription_order_mail')
         done_orders = self.search([('state', '=', 'done')])
-        print(done_orders)
         for order in done_orders:
             print(order.id)
             template.send_mail(order.id, force_send=True)

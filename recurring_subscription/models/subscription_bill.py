@@ -11,15 +11,28 @@ class SubscriptionBill(models.Model):
     simulation = fields.Boolean(string="Simulation")
     start_date = fields.Date(string="Start Date")
     end_date = fields.Date(string="End Date")
-    customer_ids = fields.Many2many("res.partner", string="Customers")
+    customer_ids = fields.Many2many("res.partner", string="Customers", compute="_compute_customer_ids", readonly=False)
     active = fields.Boolean(string="Active", default=True)
     total_credit_amount = fields.Float(string="Total Credit Amount",
-                                       compute='_compute_total_credit')
+                                       compute='_compute_total_credit', store=True)
     subscription_order_ids = fields.One2many("subscription.order",
                                              inverse_name='bill_id',
                                              string="Subscription Order")
     credit_ids = fields.One2many("subscription.credit", inverse_name="bill_id",
                               string="Credits" )
+
+    @api.depends('subscription_order_ids')
+    def _compute_customer_ids(self):
+        """To show the customers in the scheduled bill"""
+        for rec in self.subscription_order_ids:
+            self.write({
+                'customer_ids': [fields.Command.create({
+                    'name': rec.partner_id.name
+                })]
+            })
+
+    def action_button(self):
+        print("hiiiiii")
 
 
     def subscription_orders(self):
@@ -44,6 +57,7 @@ class SubscriptionBill(models.Model):
         for rec in self:
             rec.total_credit_amount = sum(rec.credit_ids.mapped(
                 'credit_amount'))
+
 
     def action_create_invoice(self):
         """
