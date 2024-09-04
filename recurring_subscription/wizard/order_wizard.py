@@ -3,7 +3,7 @@
 from odoo import fields, models
 
 
-class RejectionWizard(models.TransientModel):
+class OrderWizard(models.TransientModel):
     _name = 'order.wizard'
     _description = 'Subscription Order Wizard'
 

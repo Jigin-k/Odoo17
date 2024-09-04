@@ -10,7 +10,7 @@
                         <field name="subscription_ids" widget="many2many_tags"/>
                     </group>
                     <group>
-                        <field name="period"/>
+                        <field name="state"/>
                     </group>
 
                     <footer>
@@ -29,4 +29,5 @@
         <field name="view_mode">form</field>
          <field name="target">new</field>
     </record>
+
 </odoo>

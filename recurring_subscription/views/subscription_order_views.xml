@@ -36,7 +36,6 @@
         </field>
     </record>
 
-
     <record model="ir.ui.view" id="order_form_view">
         <field name="name">subscription.order.form</field>
         <field name="model">subscription.order</field>

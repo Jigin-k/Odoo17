@@ -9,9 +9,11 @@
     </menuitem>
     <menuitem id="report_menu" name="Reports"
               parent="subscription_menu_root" >
-        <menuitem id="subscription_report_submenu" name="Subscription Report"
-                  action="order_wizard_action"/>
     </menuitem>
+       <menuitem id="subscription_order_submenu" name="Subscription Report"
+                  action="order_wizard_action" parent="report_menu"/>
+    <menuitem id="subscription_credit_submenu" name="Credit Report"
+                  action="credit_wizard_action" parent="report_menu"/>
     <menuitem id="billing_menu" name="Configuration" parent="subscription_menu_root" >
         <menuitem id="credit_submenu" name="Credits" action="credit_action"/>
         <menuitem id="billing_submenu" name="Billing" action="billing_action"/>
