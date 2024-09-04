@@ -12,7 +12,7 @@
         "security/ir.model.access.csv",
         "wizard/order_wizard_views.xml",
         "views/subscription_order_views.xml",
-        "report/subscription_order_reports.xml",
+        "report/ir.actions.report.xml",
         "report/subscription_order_templates.xml",
         "views/subscription_credit_views.xml",
         "views/subscription_bill_views.xml",
