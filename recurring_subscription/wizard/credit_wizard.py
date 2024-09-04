@@ -7,7 +7,8 @@ class RejectionWizard(models.TransientModel):
     _name = 'order.wizard'
     _description = 'Subscription Order Wizard'
 
-    subscription_ids = fields.Many2many("subscription.order", string="Subscription")
+    subscription_ids = fields.Many2many("subscription.order",
+                                        string="Subscription")
     period = fields.Selection(
         selection=[('daily', 'Daily'), ('weekly', 'Weekly'),
                    ('monthly', 'Monthly'),
@@ -15,9 +16,11 @@ class RejectionWizard(models.TransientModel):
 
     def action_done(self):
         data = {
-            'subscription_ids' : self.subscription_ids.ids,
-            'period':self.period
+            'subscription_ids': self.subscription_ids.ids,
+            'period': self.period
         }
         print(data)
-        return self.env.ref('recurring_subscription.action_report_subscription_order').report_action(None,data=data)
-        
+        return self.env.ref(
+            'recurring_subscription.action_report_subscription_order').report_action(
+            None, data=data)
+

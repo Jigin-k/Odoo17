@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_subscription_order">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="text-center">
+                        <h1>Subscription Orders</h1>
+                    </div>
+                    <div>
+                        <table class="table report_border table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="padding: 0px;" class="text-center">
+                                        <h5><b>Sl No</b></h5>
+                                    </th>
+                                    <th style="padding: 0px;" class="text-center">
+                                        <h5><b>Name</b></h5>
+                                    </th>
+                                    <th style="padding: 0px;" class="text-center">
+                                        <h5><b>Customer</b></h5>
+                                    </th>
+                                    <th style="padding: 0px;" class="text-center">
+                                        <h5><b>Product</b></h5>
+                                    </th>
+                                    <th style="padding: 0px;" class="text-center">
+                                        <h5><b>Amount</b></h5>
+                                    </th>
+                                    <th style="padding: 0px;" class="text-center">
+                                        <h5><b>State</b></h5>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="serial_number" t-value="1"/>
+                                <t t-foreach="report" t-as="rep">
+                                    <tr>
+                                        <td class="text-center" style="vertical-align:middle;">
+                                            <t t-esc="serial_number"/>
+                                            <t t-set="serial_number" t-value="serial_number + 1"/>
+                                        </td>
+                                        <td class="text-center" style="vertical-align:middle;">
+                                            <t t-esc="rep['subscription']"/>
+                                        </td>
+                                        <td class="text-center" style="vertical-align:middle;">
+                                            <t t-esc="rep['customer']"/>
+                                        </td>
+                                        <td class="text-center" style="vertical-align:middle;">
+                                            <t t-esc="rep['product']"/>
+                                        </td>
+                                        <td class="text-center" style="vertical-align:middle;">
+                                            <t t-esc="rep['amount']"/>
+                                        </td>
+                                        <td class="text-center" style="vertical-align:middle;">
+                                            <t t-esc="rep['state']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

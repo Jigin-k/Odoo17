@@ -18,7 +18,7 @@ so.due_date,so.next_billing,so.state from subscription_order as so
 
 
         if data.get('subscription_ids'):
-            query += """ where so.name in '%s'""" % (str(tuple(data.get('subscription_ids'))))
+            query += """ where so.id in '%s'""" % (str(tuple(data.get('subscription_ids'))))
         if data.get('period') == 'daily':
             query += """ and so.order_date = CURRENT_DATE"""
         if data.get('period') == 'weekly':
