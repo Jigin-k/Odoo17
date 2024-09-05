@@ -12,6 +12,7 @@
         "security/ir.model.access.csv",
         "wizard/order_wizard_views.xml",
         "wizard/credit_wizard_views.xml",
+        "wizard/order_xlsx_views.xml",
         "views/subscription_order_views.xml",
         "report/ir.actions.report.xml",
         "report/subscription_order_templates.xml",
@@ -25,8 +26,12 @@
         "data/ir_cron_data.xml",
         "data/subscription_template_data.xml",
         "data/product_template_data.xml",
-
     ],
+'assets':{
+        'web.assets_backend':[
+           "recurring_subscription/static/src/js/**"
+        ]
+    },
     'installable': True,
     'application': True
 }

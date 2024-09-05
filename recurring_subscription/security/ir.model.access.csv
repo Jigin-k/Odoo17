@@ -9,6 +9,7 @@ access_subscription_credit_manager,access.subscription.credit,model_subscription
 access_subscription_bill_manager,access.subscription.bill,model_subscription_bill,recurring_subscription.subscription_manager,1,1,1,1
 action_order_wizard_manager, access.order.wizard,model_order_wizard,recurring_subscription.subscription_manager,1,1,1,1
 action_credit_wizard_manager, access.credit.wizard,model_credit_wizard,recurring_subscription.subscription_manager,1,1,1,1
+action_order_xlsx_wizard_manager, access.order.xlsx.wizard,model_order_xlsx_wizard,recurring_subscription.subscription_manager,1,1,1,1
 
 
 

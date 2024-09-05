@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="report_subscription_order">
+    <template id="report_subscription_credit">
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <div class="page">
                     <div class="text-center">
-                        <h1>Subscription Orders</h1>
+                        <h1>Subscription Credit Report</h1>
                     </div>
                     <div>
                         <table class="table report_border table-hover table-striped">
@@ -18,13 +18,16 @@
                                         <h5><b>Name</b></h5>
                                     </th>
                                     <th style="padding: 0px;" class="text-center">
+                                        <h5><b>Subscription</b></h5>
+                                    </th>
+                                    <th style="padding: 0px;" class="text-center">
                                         <h5><b>Customer</b></h5>
                                     </th>
                                     <th style="padding: 0px;" class="text-center">
-                                        <h5><b>Product</b></h5>
+                                        <h5><b>Credit Applied</b></h5>
                                     </th>
                                     <th style="padding: 0px;" class="text-center">
-                                        <h5><b>Amount</b></h5>
+                                        <h5><b>Amount Pending</b></h5>
                                     </th>
                                     <th style="padding: 0px;" class="text-center">
                                         <h5><b>State</b></h5>
@@ -40,20 +43,29 @@
                                             <t t-set="serial_number" t-value="serial_number + 1"/>
                                         </td>
                                         <td class="text-center" style="vertical-align:middle;">
+                                            <t t-esc="rep['credit']"/>
+                                        </td>
+                                        <td class="text-center" style="vertical-align:middle;">
                                             <t t-esc="rep['subscription']"/>
                                         </td>
                                         <td class="text-center" style="vertical-align:middle;">
                                             <t t-esc="rep['customer']"/>
                                         </td>
                                         <td class="text-center" style="vertical-align:middle;">
-                                            <t t-esc="rep['product']"/>
+                                            <t t-esc="rep['credit_applied']"/>
+                                            <t t-esc="rep['currency']"/>
                                         </td>
                                         <td class="text-center" style="vertical-align:middle;">
-                                            <t t-esc="rep['amount']"/>
+                                            <t t-esc="rep['amount_pending']"/>
+                                            <t t-esc="rep['currency']"/>
                                         </td>
-                                        <td class="text-center" style="vertical-align:middle;">
-                                            <t t-esc="rep['state']"/>
-                                        </td>
+                                         <td class="text-center" style="vertical-align:middle;">
+                                            <t t-esc="{
+                                                'pending': 'Pending',
+                                                'confirmed': 'Confirmed',
+                                                'rejected': 'Rejected'
+                                            }.get(rep['state'])"/>
+                                         </td>
                                     </tr>
                                 </t>
                             </tbody>

@@ -33,6 +33,7 @@
                             </thead>
                             <tbody>
                                 <t t-set="serial_number" t-value="1"/>
+                                <t t-set="total_amount" t-value="0"/>
                                 <t t-foreach="report" t-as="rep">
                                     <tr>
                                         <td class="text-center" style="vertical-align:middle;">
@@ -49,13 +50,26 @@
                                             <t t-esc="rep['product']"/>
                                         </td>
                                         <td class="text-center" style="vertical-align:middle;">
+                                           <t t-esc="rep['currency']"/>
                                             <t t-esc="rep['amount']"/>
                                         </td>
-                                        <td class="text-center" style="vertical-align:middle;">
-                                            <t t-esc="rep['state']"/>
-                                        </td>
+                                         <td class="text-center" style="vertical-align:middle;">
+                                            <t t-esc="{
+                                                'draft': 'Draft',
+                                                'confirm': 'Confirmed',
+                                                'done': 'Done'
+                                            }.get(rep['state'])"/>
+                                         </td>
+                                         <t t-set="total_amount" t-value="total_amount + rep['amount']"/>
                                     </tr>
                                 </t>
+                                <tr>
+                                    <td colspan="4" class="text-center"><b>Subtotal:</b></td>
+                                    <td class="text-left" colspan="2">
+                                        <t t-esc="report[0]['currency']"/>
+                                        <t t-esc="total_amount" class="text-center"/>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

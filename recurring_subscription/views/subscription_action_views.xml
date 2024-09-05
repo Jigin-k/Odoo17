@@ -10,10 +10,12 @@
     <menuitem id="report_menu" name="Reports"
               parent="subscription_menu_root" >
     </menuitem>
-       <menuitem id="subscription_order_submenu" name="Subscription Report"
+       <menuitem id="subscription_order_submenu" name="Subscriptions"
                   action="order_wizard_action" parent="report_menu"/>
-    <menuitem id="subscription_credit_submenu" name="Credit Report"
+    <menuitem id="subscription_credit_submenu" name="Credits"
                   action="credit_wizard_action" parent="report_menu"/>
+     <menuitem id="excel_report_submenu" name="XLSX Report"
+              parent="report_menu" action="action_order_xlsx_report"/>
     <menuitem id="billing_menu" name="Configuration" parent="subscription_menu_root" >
         <menuitem id="credit_submenu" name="Credits" action="credit_action"/>
         <menuitem id="billing_submenu" name="Billing" action="billing_action"/>

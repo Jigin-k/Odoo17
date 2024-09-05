@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="order_xlsx_report_view" model="ir.ui.view">
+        <field name="name">Subscription Orders xlsx Report</field>
+        <field name="model">order.xlsx.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Report Options">
+                <separator string="Excel Report"/>
+                <group col="2">
+                    <group>
+                        <field name="subscription_ids"
+                               widget="many2many_tags"/>
+                        <field name="period"/>
+                    </group>
+                    <group>
+                        <field name="from_date"
+                               invisible="period not in('custom')"/>
+
+                        <field name="to_date"
+                               invisible="period not in('custom')"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_xlsx" string="PRINT" type="object"
+                            default_focus="1" class="oe_highlight"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_order_xlsx_report" model="ir.actions.act_window">
+        <field name="name">Excel</field>
+        <field name="res_model">order.xlsx.wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
