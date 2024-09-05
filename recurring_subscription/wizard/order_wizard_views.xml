@@ -6,11 +6,19 @@
             <field name="model">order.wizard</field>
             <field name="arch" type="xml">
                 <form>
-                    <group>
-                        <field name="subscription_ids" widget="many2many_tags"/>
-                    </group>
-                    <group>
-                        <field name="period"/>
+                    <group col="2">
+                        <group>
+                            <field name="subscription_ids"
+                                   widget="many2many_tags"/>
+                            <field name="period"/>
+                        </group>
+                        <group>
+                            <field name="from_date"
+                                   invisible="period not in('custom')"/>
+
+                            <field name="to_date"
+                                   invisible="period not in('custom')"/>
+                        </group>
                     </group>
 
                     <footer>
@@ -23,10 +31,10 @@
             </field>
         </record>
     </data>
-        <record id="order_wizard_action" model="ir.actions.act_window">
+    <record id="order_wizard_action" model="ir.actions.act_window">
         <field name="name">Subscription Order Reports</field>
         <field name="res_model">order.wizard</field>
         <field name="view_mode">form</field>
-         <field name="target">new</field>
+        <field name="target">new</field>
     </record>
 </odoo>

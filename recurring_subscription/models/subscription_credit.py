@@ -3,7 +3,6 @@
 from odoo import api, fields, models
 
 
-
 class SubscriptionCredit(models.Model):
     _name = "subscription.credit"
     _description = "Subscription Credit"
@@ -21,14 +20,12 @@ class SubscriptionCredit(models.Model):
     product_id = fields.Many2one("product.product", string="Product")
     company_id = fields.Many2one("res.company", string="Company ID",
                                  related="order_id.company_id")
-    title = fields.Char(string='Name')
+    name = fields.Char(string='Name')
     state = fields.Selection(selection=[
         ('pending', 'Pending'),
         ('confirmed', 'Confirmed'),
-        ('first_approved', 'First Approved'),
-        ('fully_approved', 'Fully Approved'),
         ('rejected', 'Rejected')
-    ], string='Status', clickable=True, tracking=True)
+    ], string='Status', clickable=True, tracking=True, default='pending')
     bill_id = fields.Many2one("subscription.bill", string="Bills",
                               related="order_id.bill_id")
 
@@ -42,3 +39,6 @@ class SubscriptionCredit(models.Model):
         if self.credit_amount and self.order_id:
             if self.credit_amount > self.order_id.recurring_price:
                 self.order_id = False
+
+    def action_confirm(self):
+        self.state = 'confirmed'

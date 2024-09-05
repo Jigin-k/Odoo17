@@ -8,7 +8,7 @@
             <tree>
                 <field name="order_id"/>
                 <field name="partner_id"/>
-                <field name="title"/>
+                <field name="name"/>
                 <field name="credit_amount"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
@@ -24,19 +24,22 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="action_confirm" class="oe_highlight"
+                            invisible="state not in('pending')"
+                            string="Confirm" type="object"/>
                     <field name="state" widget="statusbar"
-                           statusbar_visible="pending,confirmed,first approved,fully approved,rejected"
+                           statusbar_visible="pending,confirmed,rejected"
                            options="{'clickable': 1}"/>
                 </header>
                 <sheet>
                     <group col="2">
                         <group>
-                            <field name="order_id"/>
+                            <field name="name"/>
                             <field name="partner_id"/>
                             <field name="product_id"/>
                         </group>
                         <group>
-                            <field name="title"/>
+                            <field name="order_id"/>
                             <field name="company_id"/>
                             <field name="credit_amount"/>
                             <field name="start_date"/>

@@ -27,7 +27,7 @@ class SubscriptionOrder(models.Model):
     recurring_price = fields.Integer(string="Recurring Price")
     is_lead = fields.Boolean(default=True)
     partner_id = fields.Many2one("res.partner", string="Customer")
-    description = fields.Text(string="Description")
+    description = fields.Char(string="Description")
     terms_conditions = fields.Html('Terms And Conditions')
     product_id = fields.Many2one("product.product", string="Product")
     company_id = fields.Many2one("res.company", string="Company ID",
