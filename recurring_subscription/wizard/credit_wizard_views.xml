@@ -14,7 +14,9 @@
                     </group>
 
                     <footer>
-                        <button name="action_done" string="Submit" type="object"
+                        <button name="action_pdf_report" string="Print PDF" type="object"
+                                class="btn-primary"/>
+                        <button name="action_xlsx_report" string="Print xlsx" type="object"
                                 class="btn-primary"/>
                         <button string="Cancel" class="btn-secondary"
                                 special="cancel"/>

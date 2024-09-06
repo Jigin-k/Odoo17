@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+        <record id="website_subscription_menu" model="website.menu">
+        <field name="name">Subscriptions</field>
+        <field name="url">/webform</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">90</field>
+    </record>
     <menuitem id="subscription_menu_root" name='Recurring Subscription'
               action="subscription_action" />
     <menuitem id="subscription_menu" name="Subscriptions"

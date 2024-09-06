@@ -2,7 +2,7 @@
     'name': "Recurring Subscription",
     'sequence': '-10',
     'version': '17.0.1.0.0',
-    'depends': ['base', 'sale', 'crm', 'mail', 'contacts'],
+    'depends': ['base', 'sale', 'crm', 'mail', 'contacts','website'],
     #     'author': "Author Name",
     #     'category': 'Category',
     'description': """
@@ -25,8 +25,13 @@
         "data/ir_cron_data.xml",
         "data/subscription_template_data.xml",
         "data/product_template_data.xml",
+        "data/subscription_web_form_template.xml",
 
     ],
+    'assets': {
+        'web.assets_backend': [
+            "recurring_subscription/static/src/js/**"
+        ]},
     'installable': True,
     'application': True
 }

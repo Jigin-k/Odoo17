@@ -1,6 +1,7 @@
 from odoo import models, api
 
 
+
 class SubscriptionCreditReport(models.AbstractModel):
     _name = "report.recurring_subscription.report_subscription_credit"
 
@@ -13,7 +14,7 @@ class SubscriptionCreditReport(models.AbstractModel):
                   inner join subscription_order as so on so.id = sc.order_id
                   inner join res_partner as pr on pr.id = so.partner_id
                   inner join res_company as comp on comp.id = so.company_id
-				inner join res_currency as cr on cr.id = comp.currency_id
+				  inner join res_currency as cr on cr.id = comp.currency_id
                 """
         if data.get('subscription_id'):
             query += """ where sc.order_id = %s"""%data.get('subscription_id')
