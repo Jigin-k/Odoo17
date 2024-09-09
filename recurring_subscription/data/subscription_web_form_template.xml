@@ -1,44 +1,125 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-<template id="subscription_web_form_template">
-       <t t-call="website.layout">
-           <div id="wrap" class="oe_structure oe_empty">
-               <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
-                   <div class="container">
-                       <form action="/webform/submit" enctype="multipart/form-data" class="o_mark_required" data-mark="*" data-model_name="" data-success-page="">
-                           <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                           <div class="s_website_form_rows row s_col_no_bgcolor">
-                               <div class="form-group col-12 s_website_form_field s_website_form_required" data-type="char" data-name="Field">
-                                   <div class="row s_col_no_resize s_col_no_bgcolor">
-                                       <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="studio1">
-                                           <span class="s_website_form_label_content">Name</span>
-                                           <span class="s_website_form_mark"> *</span>
-                                       </label>
-                                       <div class="col-sm">
-                                       <input id="name" type="text" class="form-control s_website_form_input" name="name" required="1"/>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="form-group col-12 s_website_form_field s_website_form_required" data-type="char" data-name="Field">
-                                   <div class="row s_col_no_resize s_col_no_bgcolor">
-                                       <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px" for="studio1">
-                                           <span class="s_website_form_label_content">Establishment ID</span>
-                                           <span class="s_website_form_mark"> *</span>
-                                       </label>
-                                       <div class="col-sm">
-                                       <input id="phone" type="text" class="form-control s_website_form_input" name="establishment_id" required="1"/>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="form-group col-12 s_website_form_submit" data-name="Submit Button">
-                                   <div style="width: 200px;" class="s_website_form_label"/>
-                                   <button name="web_form_submit" type="submit" class="btn btn-primary">Submit</button>
-                               </div>
-                           </div>
-                       </form>
-                   </div>
-               </section>
-           </div>
-       </t>
-   </template>
+
 </odoo>
+<!--    <template id="website_menu_subscriptions_orders">-->
+<!--        <t t-call="website.layout">-->
+<!--            <div id="wrap" class="oe_structure oe_empty">-->
+<!--                <section class="s_website_form" data-vcss="001"-->
+<!--                         data-snippet="s_website_form">-->
+<!--                    <div class="container">-->
+<!--                        <form action="/subscriptions/submit"-->
+<!--                              enctype="multipart/form-data"-->
+<!--                              class="o_mark_required" data-mark="*"-->
+<!--                              data-model_name="" data-success-page="">-->
+<!--                            <input type="hidden" name="csrf_token"-->
+<!--                                   t-att-value="request.csrf_token()"/>-->
+<!--                            <div style="height:30px">-->
+<!--                            </div>-->
+<!--                            <div class="s_website_form_rows row s_col_no_bgcolor">-->
+<!--                                <div class="form-group col-12 s_website_form_field s_website_form_required"-->
+<!--                                     data-type="char" data-name="Field">-->
+<!--                                    <div class="row s_col_no_resize s_col_no_bgcolor">-->
+<!--                                        <label class="col-form-label col-sm-auto s_website_form_label"-->
+<!--                                               style="width: 200px"-->
+<!--                                               for="studio1">-->
+<!--                                            <span class="s_website_form_label_content">-->
+<!--                                                Subscription-->
+<!--                                            </span>-->
+<!--                                            <span class="s_website_form_mark">-->
+<!--                                                *-->
+<!--                                            </span>-->
+<!--                                        </label>-->
+<!--                                        <div class="col-sm">-->
+<!--                                            <input id="name" type="text"-->
+<!--                                                   class="form-control s_website_form_input"-->
+<!--                                                   name="name" required="1"/>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div style="height:30px">-->
+<!--                                </div>-->
+<!--                                <div class="form-group col-12 s_website_form_field s_website_form_required"-->
+<!--                                     data-type="char" data-name="Field">-->
+<!--                                    <div class="row s_col_no_resize s_col_no_bgcolor">-->
+<!--                                        <label class="col-form-label col-sm-auto s_website_form_label"-->
+<!--                                               style="width: 200px"-->
+<!--                                               for="studio1">-->
+<!--                                            <span class="s_website_form_label_content">-->
+<!--                                                Establishment ID-->
+<!--                                            </span>-->
+<!--                                            <span class="s_website_form_mark">-->
+<!--                                                *-->
+<!--                                            </span>-->
+<!--                                        </label>-->
+<!--                                        <div class="col-sm">-->
+<!--                                            <input id="phone" type="text"-->
+<!--                                                   class="form-control s_website_form_input"-->
+<!--                                                   name="establishment_id"-->
+<!--                                                   required="1"/>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div style="height:30px">-->
+<!--                                </div>-->
+<!--                                <label style="width: 200px" for="partner">-->
+<!--                                    <span class="s_website_form_label_content">-->
+<!--                                        Customer-->
+<!--                                    </span>-->
+<!--                                </label>-->
+<!--                                <div class="col-sm">-->
+<!--                                    <select id="partner"-->
+<!--                                            name="partner_id"-->
+<!--                                            class="form-control s_website_form_input">-->
+<!--                                        <t t-foreach="partner" t-as="partner">-->
+<!--                                            <option t-esc="partner.name"-->
+<!--                                                    t-att-value="partner.id"/>-->
+<!--                                        </t>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div style="height:30px">-->
+<!--                                </div>-->
+<!--                                <label style="width: 200px" for="product">-->
+<!--                                    <span class="s_website_form_label_content">-->
+<!--                                        Product-->
+<!--                                    </span>-->
+<!--                                </label>-->
+<!--                                <div class="col-sm">-->
+<!--                                    <select id="product"-->
+<!--                                            name="product__id"-->
+<!--                                            class="form-control s_website_form_input">-->
+<!--                                        <t t-foreach="product" t-as="product">-->
+<!--                                            <option t-esc="product.name"-->
+<!--                                                    t-att-value="product.id"/>-->
+<!--                                        </t>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+
+<!--                                <div style="height:30px">-->
+<!--                                </div>-->
+<!--                                 <label style="width: 200px" >-->
+<!--                                        <span class="s_website_form_label_content">-->
+<!--                                        Date-->
+<!--                                    </span>-->
+<!--                                </label>-->
+<!--                                <div class="col-sm">-->
+<!--                                   <input id="order_date" type="date" name="order_date" />-->
+<!--                                </div>-->
+<!--                                <div style="height:30px">-->
+<!--                                </div>-->
+<!--                                <div class="form-group col-12 s_website_form_submit"-->
+<!--                                     data-name="Submit Button">-->
+<!--                                    <div style="width: 200px;"-->
+<!--                                         class="s_website_form_label"/>-->
+<!--                                    <button name="order_submit" type="submit"-->
+<!--                                            class="btn btn-primary">Submit-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </section>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </template>-->
+<!--</odoo>-->

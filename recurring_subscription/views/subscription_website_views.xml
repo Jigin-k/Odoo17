@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="website_menu_subscriptions" model="website.menu">
+        <field name="name">Subscriptions</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="url">/subscriptions</field>
+        <field name="sequence" type="int">10</field>
+    </record>
+
+    <record id="website_menu_subscriptions_orders_new" model="website.menu">
+        <field name="name">Orders</field>
+        <field name="parent_id" ref="website_menu_subscriptions"/>
+        <field name="url">/subscriptions/orders</field>
+        <field name="sequence" type="int">11</field>
+    </record>
+
+    <record id="website_menu_subscriptions_credits" model="website.menu">
+        <field name="name">Credits</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="url">/credits</field>
+        <field name="sequence" type="int">12</field>
+    </record>r
+
+    <record id="website_menu_subscriptions_billing" model="website.menu">
+        <field name="name">Billing</field>
+        <field name="parent_id" ref="website_menu_subscriptions"/>
+        <field name="url">/subscriptions/billing</field>
+        <field name="sequence" type="int">13</field>
+    </record>
+</odoo>

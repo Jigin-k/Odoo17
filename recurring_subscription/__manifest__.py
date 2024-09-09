@@ -25,7 +25,9 @@
         "data/ir_cron_data.xml",
         "data/subscription_template_data.xml",
         "data/product_template_data.xml",
-        "data/subscription_web_form_template.xml",
+"data/subscription_website_templates.xml",
+        "views/subscription_website_views.xml",
+
 
     ],
     'assets': {
