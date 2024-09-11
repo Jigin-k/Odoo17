@@ -7,11 +7,11 @@
         <field name="sequence" type="int">10</field>
     </record>
 
-    <record id="website_menu_subscriptions_orders_new" model="website.menu">
+    <record id="website_page_subscriptions_orders" model="website.page">
         <field name="name">Orders</field>
-        <field name="parent_id" ref="website_menu_subscriptions"/>
         <field name="url">/subscriptions/orders</field>
-        <field name="sequence" type="int">11</field>
+        <field name="website_published">True</field>
+        <field name="view_id" ref="recurring_subscription.orders_template"/>
     </record>
 
     <record id="website_menu_subscriptions_credits" model="website.menu">
@@ -23,8 +23,14 @@
 
     <record id="website_menu_subscriptions_billing" model="website.menu">
         <field name="name">Billing</field>
-        <field name="parent_id" ref="website_menu_subscriptions"/>
-        <field name="url">/subscriptions/billing</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="url">/billing</field>
         <field name="sequence" type="int">13</field>
     </record>
+<!--     <record id="website_page_subscriptions_billing" model="website.page">-->
+<!--        <field name="name">Billing</field>-->
+<!--        <field name="url">/subscriptions/billings</field>-->
+<!--        <field name="website_published">True</field>-->
+<!--        <field name="view_id" ref="recurring_subscription.bills_template"/>-->
+<!--    </record>-->
 </odoo>

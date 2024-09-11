@@ -1,13 +1,15 @@
-
 import json
 from odoo import http
 from odoo.http import content_disposition, request, Controller, route
 from odoo.http import serialize_exception as _serialize_exception
 from odoo.tools import html_escape
 
+
 class XLSXReportController(http.Controller):
     """XlsxReport generating controller"""
-    @http.route('/xlsx_reports', type='http', auth='user', methods=['POST'], csrf=False)
+
+    @http.route('/xlsx_reports', type='http', auth='user', methods=['POST'],
+                csrf=False)
     def get_report_xlsx(self, model, options, output_format, **kw):
         """
         Generate an XLSX report based on the provided data and return it as a
@@ -24,7 +26,8 @@ class XLSXReportController(http.Controller):
                     headers=[
                         ('Content-Type', 'application/vnd.ms-excel'),
                         ('Content-Disposition',
-                         content_disposition('Subscription Order Report' + '.xlsx'))
+                         content_disposition(
+                             'Subscription Order Report' + '.xlsx'))
                     ]
                 )
                 report_obj.get_xlsx_report(options, response)
@@ -40,37 +43,34 @@ class XLSXReportController(http.Controller):
             return request.make_response(html_escape(json.dumps(error)))
 
 
-
-
 class SubscriptionWebsite(http.Controller):
 
     @http.route('/subscriptions', type='http', auth='public', website=True)
     def subscriptions(self, **kwargs):
-        subscriptions= request.env['subscription.order'].sudo().search([])
+        subscriptions = request.env['subscription.order'].sudo().search([])
         return request.render('recurring_subscription.subscriptions_template', {
-            'subscriptions':subscriptions
+            'subscriptions': subscriptions
         })
-
-    # @http.route('/subscriptions', type='http', auth='public', website=True)
-    # def action_create_order(self,**kwargs):
-    #     print("hi")
 
     @http.route('/subscriptions/orders', type='http', auth='public',
                 website=True)
     def subscriptions_orders(self, **kwargs):
         partner = request.env['res.partner'].sudo().search([])
         product = request.env['product.product'].sudo().search([])
+        bill = request.env['subscription.bill'].sudo().search([])
         return request.render('recurring_subscription.orders_template', {
-            'partner':partner,
-            'product':product
+            'partner': partner,
+            'product': product,
+            'bill': bill
         })
 
     @http.route('/credits', type='http', auth='public', website=True)
     def credits(self, **kwargs):
         credits = request.env['subscription.credit'].sudo().search([])
-        return request.render('recurring_subscription.subscriptions_credits_template', {
-            'credits': credits
-        })
+        return request.render(
+            'recurring_subscription.subscriptions_credits_template', {
+                'credits': credits
+            })
 
     @http.route('/subscriptions/credits', type='http', auth='public',
                 website=True)
@@ -79,15 +79,25 @@ class SubscriptionWebsite(http.Controller):
         partner = request.env['res.partner'].sudo().search([])
         product = request.env['product.product'].sudo().search([])
         return request.render('recurring_subscription.credits_template', {
-            'subscriptions':subscriptions,
+            'subscriptions': subscriptions,
             'partner': partner,
             'product': product
         })
 
-    @http.route('/subscriptions/billing', type='http', auth='public',
+    @http.route('/billing', type='http', auth='public',
                 website=True)
-    def subscriptions_billing(self, **kwargs):
-        return request.render('recurring_subscription.billing_template', {})
+    def billing(self, **kwargs):
+        billing = request.env['subscription.bill'].sudo().search([])
+        return request.render(
+            'recurring_subscription.subscriptions_billing_template', {
+                'billing': billing
+            })
+
+    @http.route('/subscriptions/billings', type='http', auth='public',
+                website=True)
+    def subscriptions_bills(self, **kwargs):
+        return request.render('recurring_subscription.bills_template', {
+        })
 
     @route('/orders/submit', type='http', auth='public', website=True,
            methods=['POST'])
@@ -95,30 +105,74 @@ class SubscriptionWebsite(http.Controller):
         request.env['subscription.order'].sudo().create({
             'name': post.get('name'),
             'establishment_id': post.get('establishment_id'),
-            'partner_id':post.get('partner_id'),
-            'product_id':post.get('product_id'),
-            'order_date':post.get('order_date'),
+            'partner_id': post.get('partner_id'),
+            'product_id': post.get('product_id'),
+            'order_date': post.get('order_date'),
+            'due_date': post.get('due_date'),
+            'next_billing': post.get('next_billing'),
             'recurring_price': post.get('recurring_price'),
-            'state':'confirm'
-
+            'bill_id': post.get('bill_id'),
+            'state': 'confirm'
         })
+        # subscription_order = request.env['subscription.order'].sudo().search([('name','=',post.get('name'))])
+        # subscription_order._onchange_new_date()
         return request.redirect('/orders-thank-you')
 
-
+    @route('/bills/submit', type='http', auth='public', website=True,
+           methods=['POST'])
+    def bill_submit(self, **post):
+        request.env['subscription.bill'].sudo().create({
+            'name': post.get('name'),
+            'start_date': post.get('start_date'),
+            'end_date': post.get('end_date')
+        })
+        red_url = '/subscriptions/billings'
+        return request.redirect(red_url)
 
     @route('/credits/submit', type='http', auth='public', website=True,
            methods=['POST'])
-    def credit_submit(self,**post):
+    def credit_submit(self, **post):
         request.env['subscription.credit'].sudo().create({
             'name': post.get('name'),
-            'order_id':post.get('subscription_id'),
-            'partner_id':post.get('partner_id'),
+            'order_id': post.get('subscription_id'),
+            'partner_id': post.get('partner_id'),
             'product_id': post.get('product_id'),
-            'start_date':post.get('start_date'),
+            'start_date': post.get('start_date'),
             'credit_amount': post.get('credit_amount'),
-
         })
-        print('hi   ')
-        return request.redirect('/credits-thank-you')
 
+        return request.redirect('/credits')
 
+    @http.route('/subscription/bill/<model("subscription.bill"):bill>',
+                type='http', auth='public', website=True)
+    def scheduled_bills(self, bill):
+        subscription_orders = request.env['subscription.order'].search(
+            [('bill_id', '=', bill.id)])
+        print(subscription_orders)
+
+        values = {
+            'bill': bill,
+            'subscriptions': subscription_orders
+        }
+        return request.render('recurring_subscription.scheduled_bills_template',
+                              values)
+
+    @http.route('/subscription_credit_snippet', type='json', auth='public')
+    def subscription_credits(self):
+        credits = request.env['subscription.credit'].search([])
+        credits_data_list = []
+        for credit in credits:
+            credit_data = {
+                'credit': credit.name,
+                'subscription': credit.order_id.name,
+                'product':credit.product_id.name,
+                'credit_amount':credit.credit_amount
+            }
+            credits_data_list.append(credit_data)
+        data_list = {
+            'data': credits_data_list
+        }
+        print(data_list)
+        res = http.Response(template='recurring_subscription.credit_snippet',
+                            qcontext=data_list)
+        return res.render()

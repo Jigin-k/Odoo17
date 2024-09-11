@@ -14,20 +14,20 @@ def _validate_establishment_id(est_id):
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    subscription_account_id = fields.Char(string='Account ID')
+    # subscription_account_id = fields.Char(string='Account ID')
     establishment_id = fields.Char('Establishment ID')
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        """
-        To create partner account ID on partner creation
-        """
-        for vals in vals_list:
-            vals['subscription_account_id'] = ''.join(
-                (random.choices(string.ascii_letters, k=3) +
-                 random.choices(string.digits, k=3) +
-                 random.choices('!@#$%^&*()', k=2)))
-        return super(ResPartner, self).create(vals_list)
+    #
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     """
+    #     To create partner account ID on partner creation
+    #     """
+    #     for vals in vals_list:
+    #         vals['subscription_account_id'] = ''.join(
+    #             (random.choices(string.ascii_letters, k=3) +
+    #              random.choices(string.digits, k=3) +
+    #              random.choices('!@#$%^&*()', k=2)))
+    #     return super(ResPartner, self).create(vals_list)
 
     @api.constrains('establishment_id')
     def _check_establishment_id(self):

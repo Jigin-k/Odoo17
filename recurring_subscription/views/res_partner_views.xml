@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <field name="function" position="after">
-                    <field name="subscription_account_id"/>
+<!--                    <field name="subscription_account_id"/>-->
                     <field name="establishment_id"/>
                 </field>
             </field>

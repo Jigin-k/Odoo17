@@ -49,7 +49,7 @@ class SubscriptionBill(models.Model):
             'context': "{'create': False}"
         }
 
-    @api.depends('subscription_order_ids.recurring_price')
+    @api.depends('credit_ids.credit_amount')
     def _compute_total_credit(self):
         """
         To compute th total credits applied in the corresponding bills in the scheduled bill.
@@ -78,7 +78,7 @@ class SubscriptionBill(models.Model):
             for credit in self.credit_ids:
                 if credit.order_id.id==order.id:
                     lines.append(Command.create({
-                        'name': credit.title,
+                        'name': credit.name,
                         'product_id': credit.product_id.id,
                         'quantity': 1,
                         'price_unit': -credit.credit_amount,

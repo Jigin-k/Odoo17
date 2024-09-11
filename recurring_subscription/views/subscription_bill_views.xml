@@ -9,7 +9,7 @@
                 <field name="simulation"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
-                <field name="customer_ids" widget="many2many_tags"/>
+<!--                <field name="customer_ids" widget="many2many_tags"/>-->
                 <field name="active"/>
                 <field name="total_credit_amount"/>
             </tree>
