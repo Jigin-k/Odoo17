@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--<templates id="credit_snippet_template" xml:space="preserve">-->
+<!--    <t t-name="recurring_subscription.subscription_credit_snippet_template">-->
+<!--        <div class="carousel">-->
+<!--            <t t-foreach="data" t-as="credit" t-key="credit_index">-->
+<!--                    <p><t t-esc="credit['name']"/></p>-->
+<!--                <p><t t-esc="credit['credit_amount']"/></p>-->
+<!--            </t>-->
+<!--        </div>-->
+<!--    </t>-->
+<!--</templates>-->
+
+
+<!--<templates id="credit_snippet_template" xml:space="preserve">-->
+<!--        <t t-name="recurring_subscription.subscription_credit_snippet_template">-->
+<!--                    <t t-foreach="data" t-as="credit" t-key="credit_index">-->
+<!--    <div class="carousel-inner">-->
+<!--                &lt;!&ndash; #01 &ndash;&gt;-->
+<!--        <div class="carousel-item active oe_img_bg o_bg_img_center pt152 pb152"-->
+<!--             style="background-image: url('/web/image/website.s_carousel_default_image_1');"-->
+<!--             data-name="Slide">-->
+<!--                    <div class="container oe_unremovable">-->
+<!--                        <div class="row">-->
+<!--                            <div class="carousel-content col-lg-6">-->
+<!--                                <h2 class="display-3-fs"><t t-esc="credit['name']"/></h2>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                         </div>-->
+<!--        </t>-->
+
+<!--        </t>-->
+<!--</templates>-->
+<!--<templates id="credit_snippet_template" xml:space="preserve">-->
+<!--   <t t-name="recurring_subscription.subscription_credit_snippet_template">-->
+<!--       <div id="credits_carousel" class="container">-->
+<!--           <div id="TopuniqueId" class="large-12 columns">-->
+<!--               <div id="CreditsCarousel" class="owl-carousel owl-theme owl-loaded owl-drag">-->
+<!--                   <div class="owl-stage-outer">-->
+<!--                       <div class="owl-stage">-->
+<!--                                   <t t-foreach="data" t-as="data" t-key="data_index">-->
+<!--                                       <div class="owl-item" id="card_id">-->
+<!--                                           <div class="o_carousel_product_card_body d-flex flex-wrap flex-column ">-->
+<!--                                               <div class="h6 card-title"-->
+<!--                                                    t-esc="data.name"/>-->
+<!--                                           </div>-->
+<!--                                           <p class="ref-prdt-price">-->
+<!--                                               <span class="ref-prdt-offer-price"-->
+<!--                                                     data-oe-type="monetary"-->
+<!--                                                     data-oe-expression="vals.list_price">$ <span-->
+<!--                                                       class="oe_currency_value"-->
+<!--                                                       t-esc="data.credit_amount"/>-->
+<!--                                               </span>-->
+<!--                                           </p>-->
+<!--                                       </div>-->
+<!--                                   </t>-->
+<!--                       </div>-->
+<!--                   </div>-->
+<!--               </div>-->
+<!--           </div>-->
+<!--       </div>-->
+<!--   </t>-->
+<!--</templates>-->
+
+
+<!--<templates id="credit_snippet_template" xml:space="preserve">-->
+<!--   <t t-name="recurring_subscription.subscription_credit_snippet_template">-->
+<!--       <div id="credits_carousel" class="container">-->
+<!--           <div id="TopuniqueId" class="large-12 columns">-->
+<!--                   <div class="owl-stage-outer">-->
+<!--                       <div class="owl-stage" >-->
+<!--                                   <t t-foreach="data" t-as="data" t-key="vals_index">-->
+<!--                                       <div class="owl-item" >-->
+<!--                                           <div class="o_carousel_product_card_body ">-->
+<!--                                               <div class="h6 card-title"-->
+<!--                                                    t-esc="data.name"/>-->
+<!--                                           </div>-->
+<!--                                       </div>-->
+<!--                                   </t>-->
+<!--                       </div>-->
+<!--                   </div>-->
+<!--           </div>-->
+<!--       </div>-->
+<!--   </t>-->
+<!--</templates>-->
+
+<templates id="credit_snippet_template" xml:space="preserve">
+   <t t-name="recurring_subscription.subscription_credit_snippet_template">
+       <div id="credits_cards_container" class="container">
+           <div class="row">
+               <t t-foreach="data" t-as="data" t-key="vals_index">
+                   <a t-attf-href="/credits/{{data.id}}">
+                       <div class="card">
+                           <div class="card-body">
+                               <h1 class="card-title" t-esc="data.name"/>
+                               <h3 class="card-title" t-esc="data.credit_amount"/>
+                           </div>
+                       </div>
+                   </a>
+               </t>
+           </div>
+       </div>
+   </t>
+</templates>
+
+<!--<templates id="credit_snippet_template" xml:space="preserve">-->
+<!--   <t t-name="recurring_subscription.subscription_credit_snippet_template">-->
+<!--       <div id="credits_carousel_container" class="container">-->
+<!--           <div id="creditsCarousel" class="carousel slide" data-ride="carousel">-->
+<!--               <div class="carousel-inner">-->
+<!--                   <t t-foreach="data" t-as="data" t-key="vals_index">-->
+<!--                       <div class="carousel-item">-->
+<!--                           <div class="card">-->
+<!--                               <div class="card-body">-->
+<!--                                   <h6 class="card-title" t-esc="data.name"/>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                       </div>-->
+<!--                   </t>-->
+<!--               </div>-->
+<!--               <a class="carousel-control-prev" href="#creditsCarousel" role="button" data-slide="prev">-->
+<!--                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--                   <span class="sr-only">Previous</span>-->
+<!--               </a>-->
+<!--               <a class="carousel-control-next" href="#creditsCarousel" role="button" data-slide="next">-->
+<!--                   <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--                   <span class="sr-only">Next</span>-->
+<!--               </a>-->
+<!--           </div>-->
+<!--       </div>-->
+<!--   </t>-->
+<!--</templates>-->
+
+
+
+<!--<templates id="credit_snippet_template" xml:space="preserve">-->
+<!--   <t t-name="recurring_subscription.subscription_credit_snippet_template">-->
+<!--       <div id="credits_carousel_container" class="container">-->
+<!--           <div id="creditsCarousel" class="carousel slide" data-ride="carousel">-->
+<!--               <div class="carousel-inner">-->
+<!--                   <t t-foreach="data" t-as="data" t-key="vals_index">-->
+<!--                       <div class="carousel-item" t-attf-class="#{vals_index == 0 ? 'active' : ''}">-->
+<!--                           <div class="card">-->
+<!--                               <div class="card-body">-->
+<!--                                   <h6 class="card-title" t-esc="data.name"/>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                       </div>-->
+<!--                   </t>-->
+<!--               </div>-->
+<!--           </div>-->
+<!--       </div>-->
+<!--   </t>-->
+<!--</templates>-->
+

@@ -12,8 +12,9 @@
             "recurring_subscription/static/src/js/action_manager.js"
         ],
         'web.assets_frontend': [
-            "recurring_subscription/static/src/js/order_date.js"
-            "recurring_subscription/static/src/js/credit_snippet.js"
+            "recurring_subscription/static/src/js/order_date.js",
+            "recurring_subscription/static/src/js/credit_snippet.js",
+            "recurring_subscription/static/src/xml/subscription_credits_snippet_template.xml",
         ]
     },
     'data': [

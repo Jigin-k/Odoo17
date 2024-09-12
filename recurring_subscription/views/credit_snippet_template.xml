@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-     <template id="credit_snippet" name="Credit Snippet">
-        <section class="container dynamic_snippet">
-            <h3 class="text-center">Subscription Credits</h3>
-            <div class="row">
-                <t t-foreach="data" t-as="credit">
-                    <div class="p-3 col-md-3">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <h5 class="card-title text-center"
-                                    t-esc="credit['credit']"/>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item text-center"
-                                    t-esc="credit['credit_amount']"/>
-                            </ul>
-                        </div>
-                    </div>
-                </t>
-            </div>
+    <template id="credit_snippet" name="Credit Snippet">
+        <!--        Template Best seller product dynamic snippet-->
+        <section class="credit_dynamic_snippet" >
+            <div id="subscription_credits_carousel"/>
         </section>
     </template>
 </odoo>
+<!--     <template id="credit_snippet" name="Credit Snippet">-->
+<!--        <section class="container dynamic_snippet">-->
+<!--            <h3 class="text-center">Subscription Credits</h3>-->
+<!--            <div class="row">-->
+<!--                <t t-foreach="data" t-as="credit">-->
+<!--                    <div class="p-3 col-md-3">-->
+<!--                        <div class="card" style="width: 18rem;">-->
+<!--                            <div class="card-body subscription_credit_card">-->
+<!--                                <h5 class="card-title text-center"-->
+<!--                                    t-esc="credit['credit']"/>-->
+<!--                            </div>-->
+<!--                            <ul class="list-group list-group-flush">-->
+<!--                                <li class="list-group-item text-center"-->
+<!--                                    t-esc="credit['credit_amount']"/>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </t>-->
+<!--            </div>-->
+<!--        </section>-->
+<!--    </template>-->
+<!--</odoo>-->
