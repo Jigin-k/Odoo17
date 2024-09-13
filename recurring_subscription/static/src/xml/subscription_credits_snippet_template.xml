@@ -85,24 +85,24 @@
 <!--   </t>-->
 <!--</templates>-->
 
-<templates id="credit_snippet_template" xml:space="preserve">
-   <t t-name="recurring_subscription.subscription_credit_snippet_template">
-       <div id="credits_cards_container" class="container">
-           <div class="row">
-               <t t-foreach="data" t-as="data" t-key="vals_index">
-                   <a t-attf-href="/credits/{{data.id}}">
-                       <div class="card">
-                           <div class="card-body">
-                               <h1 class="card-title" t-esc="data.name"/>
-                               <h3 class="card-title" t-esc="data.credit_amount"/>
-                           </div>
-                       </div>
-                   </a>
-               </t>
-           </div>
-       </div>
-   </t>
-</templates>
+<!--<templates id="credit_snippet_template" xml:space="preserve">-->
+<!--   <t t-name="recurring_subscription.subscription_credit_snippet_template">-->
+<!--       <div id="credits_cards_container" class="container">-->
+<!--           <div class="row">-->
+<!--               <t t-foreach="data" t-as="data" t-key="vals_index">-->
+<!--                   <a t-attf-href="/credits/{{data.id}}">-->
+<!--                       <div class="card">-->
+<!--                           <div class="card-body">-->
+<!--                               <h1 class="card-title" t-esc="data.name"/>-->
+<!--                               <h3 class="card-title" t-esc="data.credit_amount"/>-->
+<!--                           </div>-->
+<!--                       </div>-->
+<!--                   </a>-->
+<!--               </t>-->
+<!--           </div>-->
+<!--       </div>-->
+<!--   </t>-->
+<!--</templates>-->
 
 <!--<templates id="credit_snippet_template" xml:space="preserve">-->
 <!--   <t t-name="recurring_subscription.subscription_credit_snippet_template">-->
@@ -133,7 +133,6 @@
 <!--</templates>-->
 
 
-
 <!--<templates id="credit_snippet_template" xml:space="preserve">-->
 <!--   <t t-name="recurring_subscription.subscription_credit_snippet_template">-->
 <!--       <div id="credits_carousel_container" class="container">-->
@@ -153,4 +152,91 @@
 <!--       </div>-->
 <!--   </t>-->
 <!--</templates>-->
+
+<!--<templates>-->
+<!--    <t t-name="recurring_subscription.subscription_credit_snippet_template">-->
+<!--        <div id="top_selling_products_carousel" class="container">-->
+<!--            <div id="TopuniqueId" class="large-12 columns">-->
+<!--                <div class="card-deck" style="display: flex; gap: 20px;">-->
+<!--                    <t t-foreach="chunkData" t-as="data" t-key="data_index">-->
+<!--                        <t t-foreach="data" t-as="vals" t-key="vals_index">-->
+<!--                            <a t-attf-href="/subscription_credit/#{vals.id}">-->
+<!--                                <div class="card"-->
+<!--                                     style="width: 18rem; height:15rem; display:inline-block;">-->
+<!--                                    <div class="card-body">-->
+<!--                                        <div class="image-field"-->
+<!--                                             style="height:142px;">-->
+<!--                                            <t>-->
+<!--                                                <img class="card-img-top o_img_product_square o_img_product_cover"-->
+<!--                                                     t-attf-src="https://as2.ftcdn.net/v2/jpg/03/96/53/85/1000_F_396538564_MZhLLMDmKbToUHszuNnZqu8eoN7JxhB9.jpg"-->
+<!--                                                     style="height:142px;"/>-->
+<!--                                            </t>-->
+
+<!--                                        </div>-->
+<!--                                        <div class="data-field">-->
+<!--                                            <h5 class="card-title text-center"-->
+<!--                                                t-esc="vals.name"/>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </t>-->
+<!--                    </t>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </t>-->
+<!--</templates>-->
+
+
+<templates id="credit_snippet_template" xml:space="preserve">
+    <t t-name="recurring_subscription.subscription_credit_snippet_template">
+
+        <div class="carousel-wrapper">
+            <div t-att-id="'carousel-'+ uniqueId" class="container carousel slide"
+                 data-bs-ride="carousel" t-att-data-bs-interval="interval">
+                <div class="carousel-inner row w-100 mx-auto" role="listbox">
+                    <t t-foreach="chunks" t-as="chunk" t-key="chunk_index">
+                        <div t-att-class="chunk.is_active ? 'carousel-item active' : 'carousel-item'">
+                            <div class="row">
+                                <t t-foreach="chunk" t-as="item" t-key="item_index">
+                                    <div class="block span3 col-3">
+                                        <a t-attf-href="/subscription_credit/#{item.id}">
+                                            <div class="card-group">
+                                                <div class="card">
+                                                    <img class="card-img-top"
+                                                         t-attf-src="https://as2.ftcdn.net/v2/jpg/03/96/53/85/1000_F_396538564_MZhLLMDmKbToUHszuNnZqu8eoN7JxhB9.jpg"
+                                                         style="padding: 0px; margin: 0px; height: 160px; width:305px;"/>
+                                                    <center>
+                                                        <h5 class="mb-0"><t t-esc="item.name"/></h5>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+
+            </div>
+
+            <a t-attf-href="#carousel-#{uniqueId}" class="carousel-control-prev"
+               data-bs-slide="prev" role="button" aria-label="Previous"
+               title="Previous">
+                <span class="fa fa-chevron-circle-left fa-2x"/>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a t-attf-href="#carousel-#{uniqueId}" class="carousel-control-next"
+               data-bs-slide="next" role="button" aria-label="Next" title="Next">
+                <span class="fa fa-chevron-circle-right fa-2x"/>
+                <span class="visually-hidden">Next</span>
+            </a>
+
+        </div>
+
+    </t>
+</templates>
+
 

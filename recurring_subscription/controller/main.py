@@ -160,8 +160,21 @@ class SubscriptionWebsite(http.Controller):
     @http.route('/subscription_credits_snippet', type='json', auth='public')
     def subscription_credits(self):
         user_id = request.env.uid
-        print(user_id)
         sub_credits = request.env['subscription.credit'].sudo().search_read(
-            [('partner_id','=',request.env.user.partner_id.id)], ['name','order_id','credit_amount'],order="create_date DESC",limit=4)
-        print(sub_credits)
+            [('partner_id','=',request.env.user.partner_id.id)], ['name','order_id','credit_amount'],order="create_date DESC")
         return sub_credits
+
+    @http.route('/subscription_credit/<model("subscription.credit"):credit>',
+                type='http', auth='public', website=True)
+    def scheduled_bills(self, credit):
+        print("hiiiiii")
+        print(credit.id)
+        sub_credit = request.env['subscription.credit'].search(
+            [('id','=',credit.id)])
+        order = sub_credit.order_id
+        values = {
+            'credit': credit,
+            'subscriptions': order
+        }
+        return request.render('recurring_subscription.subscriptions_template',
+                              values)

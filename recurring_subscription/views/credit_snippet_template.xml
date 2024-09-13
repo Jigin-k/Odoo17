@@ -3,6 +3,11 @@
     <template id="credit_snippet" name="Credit Snippet">
         <!--        Template Best seller product dynamic snippet-->
         <section class="credit_dynamic_snippet" >
+             <br/>
+                <center>
+                    <h3>Subscription Credits</h3>
+                </center>
+                <br/>
             <div id="subscription_credits_carousel"/>
         </section>
     </template>
