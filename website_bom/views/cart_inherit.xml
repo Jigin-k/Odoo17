@@ -1,0 +1,16 @@
+<odoo>
+    <template id="cart_bom_description_inherit" inherit_id="website_sale.cart_lines">
+        <xpath expr="//div[@class='flex-grow-1']" position="inside">
+            <t t-if="line.product_id.bom_ids">
+                <div> class="product-bom">
+                    <span>Bill of Materials:</span>
+                    <t t-foreach="line.product_id.bom_ids.bom_line_ids" t-as="bom_line">
+                        <li>
+                            <span t-esc="bom_line.product_id.name"/>
+                        </li>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
