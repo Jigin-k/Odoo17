@@ -1,16 +1,66 @@
 <odoo>
     <template id="cart_bom_description_inherit" inherit_id="website_sale.cart_lines">
         <xpath expr="//div[@class='flex-grow-1']" position="inside">
-            <t t-if="line.product_id.bom_ids">
-                <div> class="product-bom">
+            <t t-if="line.product_id.bom_ids and request.env['res.config.settings'].sudo().get_values().get('product_ids') and
+            line.product_id.id in request.env['res.config.settings'].sudo().get_values().get('product_ids')[0][2]">
+              <div class="product-bom">
                     <span>Bill of Materials:</span>
                     <t t-foreach="line.product_id.bom_ids.bom_line_ids" t-as="bom_line">
+                        <a t-attf-href="/shop/{{ slug(bom_line.product_id.product_tmpl_id) }}">
                         <li>
                             <span t-esc="bom_line.product_id.name"/>
                         </li>
+                        </a>
                     </t>
                 </div>
             </t>
         </xpath>
     </template>
+<!--<template id="cart_bom_description_inherit" inherit_id="website_sale.cart_lines">-->
+<!--    <xpath expr="//div[@class='flex-grow-1']" position="inside">-->
+<!--        <t t-if="line.product_id.bom_ids and -->
+<!--            <div class="product-bom">-->
+<!--                <span>Bill of Materials:</span>-->
+<!--                <t t-foreach="line.product_id.bom_ids.bom_line_ids" t-as="bom_line">-->
+<!--                    <li>-->
+<!--                        <span t-esc="bom_line.product_id.name"/>-->
+<!--                    </li>-->
+<!--                </t>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </xpath>-->
+<!--</template>-->
+<!--    <template id="cart_bom_description_inherit" inherit_id="website_sale.cart_lines">-->
+<!--    <xpath expr="//div[@class='flex-grow-1']" position="inside">-->
+<!--        <t t-if="line.product_id.bom_ids and request.env['res.config.settings'].sudo(). and-->
+<!--        request.env['res.config.settings'].sudo().search(">-->
+<!--            <div class="product-bom">-->
+<!--                <span>Bill of Materials:</span>-->
+<!--                <t t-foreach="line.product_id.bom_ids.bom_line_ids" t-as="bom_line">-->
+<!--                    <li>-->
+<!--                        <span t-esc="bom_line.product_id.name"/>-->
+<!--                    </li>-->
+<!--                </t>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </xpath>-->
+<!--</template>-->
+<!--<template id="cart_bom_description_inherit" inherit_id="website_sale.cart_lines">-->
+<!--    <xpath expr="//div[@class='flex-grow-1']" position="inside">-->
+<!--        <t t-if="line.product_id.bom_ids and request.env['res.config.settings'].sudo().search([('id', '!=', False)])-->
+<!--        .mapped('product_ids').filtered(lambda p: p.id == line.product_id.id)">-->
+<!--            <div class="product-bom">-->
+<!--                <span>Bill of Materials:</span>-->
+<!--                <t t-foreach="line.product_id.bom_ids.bom_line_ids" t-as="bom_line">-->
+<!--                    <li>-->
+<!--                        <span t-esc="bom_line.product_id.name"/>-->
+<!--                        <span t-esc="request.env['res.config.settings'].sudo().search([('id', '!=', False)])-->
+<!--        .mapped('product_ids').filtered(lambda p: p.id == line.product_id.id)"/>-->
+<!--                    </li>-->
+<!--                </t>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </xpath>-->
+<!--</template>-->
+
 </odoo>

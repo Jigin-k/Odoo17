@@ -6,15 +6,16 @@
         <field name="priority" eval="20"/>
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//form//block[@id='website_info_settings']" position="after">
+            <xpath expr="//form//block[@id='website_info_settings']"
+                   position="after">
                 <block title="Website Task" id="website_task">
                     <setting>
-                        <div class="content-group">
-                            <div class="row mt8">
-                                <label class="col-lg-3" string="Products" for="product_ids"/>
-                                <field name="product_ids" widget="many2many_tags" domain="[('bom_ids','!=',False)]"/>
-                            </div>
-                        </div>
+                        <field name="bom_product"/>
+                        <label class="col-lg-3" string="Products"
+                               for="product_ids" invisible="not bom_product"/>
+                        <field name="product_ids" widget="many2many_tags"
+                               domain="[('bom_ids','!=',False)]"
+                               invisible="not bom_product"/>
                     </setting>
                 </block>
             </xpath>
