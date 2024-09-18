@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.point_of_sale</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="95"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+             <xpath expr="//form//block[@id='pos_pricing_section']"
+                   position="inside">
+                    <setting>
+                        <field name="pos_discount_limit"/>
+                        <label class="col-lg-3" string="Maximum Discount "
+                               for="pos_amount_discount_limit" invisible="not pos_discount_limit"/>
+                        <field name="pos_amount_discount_limit"
+                               invisible="not pos_discount_limit"/>
+                    </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
