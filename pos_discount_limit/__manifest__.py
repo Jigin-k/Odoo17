@@ -10,10 +10,8 @@ Set Discount limit in POS""",
         'views/res_cofig_setings_views.xml',
     ],
     'assets': {
-        'web.assets_backend': [
-        ],
-        'web.assets_frontend': [
-            "pos_discount_limit/statis/src/js/discount.js"
+        'point_of_sale._assets_pos': [
+            "pos_discount_limit/static/src/js/discount.js"
         ]
     },
 }

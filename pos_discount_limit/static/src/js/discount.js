@@ -1,9 +1,17 @@
-/** @odoo-module */
+/** @odoo-module **/
 
-import { Orderline } from "@point_of_sale/app/store/models";
 import { patch } from "@web/core/utils/patch";
+import { Order } from "@point_of_sale/app/store/models";
 
-patch(Orderline.prototype, {
 
-    },
+patch(Order.prototype, {
+    async pay() {
+    console.log(this);
+(this.orderlines).forEach((el) =>  console.log(el.tax_ids[0]))
+let sum = 0;
+(this.orderlines).forEach((el) => sum += (((el.price*el.quantity)*(100-el.discount))/100));
+console.log(sum);
+
+
+    }
 });

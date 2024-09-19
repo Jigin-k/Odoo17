@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates xml:space="preserve">
+    <t t-name="product_brand.order_brand_pos"
+       t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+    <xpath expr="//div[hasclass('d-inline-block')]" position="inside">
+        <div>
+            <span class="text-wrap" >QQQQQQQQQQ</span>
+                </div>
+    </xpath>
+    </t>
+
+</templates>
