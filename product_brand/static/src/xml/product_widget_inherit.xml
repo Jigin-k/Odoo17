@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates xml:space="preserve">
+    <t t-name="product_brand.product_widget_    brand_pos"
+       t-inherit="point_of_sale.ProductsWidget" t-inherit-mode="extension">
+    <xpath expr="//ProductCard" position="attributes">
+        <attribute name="product_brand" add="product.product_brand"/>
+    </xpath>
+    </t>
+
+</templates>

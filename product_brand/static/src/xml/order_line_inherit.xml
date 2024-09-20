@@ -3,10 +3,12 @@
 <templates xml:space="preserve">
     <t t-name="product_brand.order_brand_pos"
        t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
-    <xpath expr="//div[hasclass('d-inline-block')]" position="inside">
-        <div>
-            <span class="text-wrap" >QQQQQQQQQQ</span>
+    <xpath expr="//div[hasclass('justify-content-between')]" position="after">
+        <t t-if="line.product_brand">
+       <div class="product-brand d-inline-block text-end price fw-bolder text-danger">
+                    <t t-esc="line.product_brand" />
                 </div>
+        </t>
     </xpath>
     </t>
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+      <menuitem id="point_of_sale.menu_product_brand"
+        name="Product Brands"
+        parent="point_of_sale.pos_config_menu_catalog"
+        action="product_brand.action_product_brand"
+        sequence="10" />
+</odoo>
