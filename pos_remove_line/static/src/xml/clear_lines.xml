@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates xml:space="preserve">
+    <t t-name="pos_remove_line.order_line_remove" t-inherit="point_of_sale.ProductScreen"
+       t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('control-buttons')]" position="after">
+            <div >
+                <button class="control-button btn-light  fw-bolder"
+                t-on-click="ClearAll" style="width:500px;">
+                    <i class="fa fa-eraser"></i>
+                    <span>Clear All</span>
+                </button>
+            </div>
+        </xpath>
+    </t>
+</templates>

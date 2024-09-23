@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="pos_order_line_views" model="ir.ui.view">
+        <field name="name">pos.order.line.views</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="total_discount_amount" invisible="1"/>
+            </field>
+            <xpath expr="/form/sheet/notebook/page/field[@name='lines']/tree/field[@name='discount']" position="after">
+                <field name="discount_amount" invisible="1" nolabel="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

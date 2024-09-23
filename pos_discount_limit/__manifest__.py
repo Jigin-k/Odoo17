@@ -8,6 +8,7 @@ Set Discount limit in POS""",
 
     'data': [
         'views/res_cofig_setings_views.xml',
+        'views/pos_order_views.xml'
     ],
     'assets': {
         'point_of_sale._assets_pos': [
