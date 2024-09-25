@@ -4,8 +4,8 @@
     <t t-name="pos_remove_line.order_line_remove" t-inherit="point_of_sale.Orderline"
        t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('product-price')]" position="after">
-                <button class="btn btn-secondary btn-sm ri-close-circle-fill text-danger"
-                        t-on-click="removeLine" style="margin-left:10px;">X</button>
+                <i class="btn btn-secondary btn-sm fa fa-trash "
+                        t-on-click="removeLine" style="margin-left:10px;"/>
         </xpath>
     </t>
 </templates>

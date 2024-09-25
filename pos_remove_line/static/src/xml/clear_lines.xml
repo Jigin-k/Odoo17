@@ -7,7 +7,7 @@
             <div >
                 <button class="control-button btn-light  fw-bolder"
                 t-on-click="ClearAll" style="width:500px;">
-                    <i class="fa fa-eraser"></i>
+                    <i class="fa fa-eraser"/>
                     <span>Clear All</span>
                 </button>
             </div>
