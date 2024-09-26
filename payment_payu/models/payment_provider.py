@@ -22,7 +22,6 @@ class PaymentProvider(models.Model):
 
 
     def _payu_generate_sign(self, values, incoming=True):
-        print("pay_pro")
         """ Generate the shasign for incoming or outgoing communications.
 
         :param dict values: The values used to generate the signature
