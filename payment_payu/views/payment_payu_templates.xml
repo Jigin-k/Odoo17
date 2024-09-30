@@ -13,7 +13,7 @@
             <input type="hidden" name="phone" t-att-value="phone"/>
             <input type="hidden" name="surl" t-att-value="return_url"/>
             <input type="hidden" name="furl" t-att-value="return_url"/>
-            <input type="hidden" name="service_provider" value="payu_paisa"/>
+            <input type="hidden" name="service_provider" value=""/>
             <input type="hidden" name="hash" t-att-value="hash"/>
         </form>
     </template>

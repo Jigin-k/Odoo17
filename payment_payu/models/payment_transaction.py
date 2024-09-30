@@ -16,7 +16,6 @@ class PaymentTransaction(models.Model):
 
     def _get_specific_rendering_values(self, processing_values):
         """ Override of payment to return payu-specific rendering values.
-        Note: self.ensure_one() from `_get_processing_values`
         """
         res = super()._get_specific_rendering_values(processing_values)
         if self.provider_code != 'payu':
@@ -39,21 +38,13 @@ class PaymentTransaction(models.Model):
             'api_url': api_url,
         }
         hash = self.provider_id._payu_generate_sign(
-            payu_values, incoming=False,
-        )
+            payu_values)
         payu_values['hash'] = hash
-        payu_values['return_url'] = f"{red_url}?txnid={self.reference}&hash={hash}"
+        payu_values['return_url'] = red_url
         return payu_values
 
     def _get_tx_from_notification_data(self, provider_code, notification_data):
         """ Override of payment to find the transaction based on Payumoney data.
-
-        :param str provider_code: The code of the provider that handled the transaction
-        :param dict notification_data: The notification data sent by the provider
-        :return: The transaction if found
-        :rtype: recordset of `payment.transaction`
-        :raise: ValidationError if inconsistent data were received
-        :raise: ValidationError if the data match no transaction
         """
         tx = super()._get_tx_from_notification_data(provider_code,
                                                         notification_data)
@@ -90,19 +81,18 @@ class PaymentTransaction(models.Model):
             return
 
         # Update the provider reference.
-        self.provider_reference = notification_data.get('payuMoneyId')
+        self.provider_reference = notification_data.get('mihpayid')
         # Update the payment method
         payment_method_type = notification_data.get('bankcode', '')
         payment_method = self.env['payment.method']._get_from_code(
             payment_method_type)
         self.payment_method_id = payment_method or self.payment_method_id
 
-        # Update the payment state.
         status = notification_data.get('status')
         if status == 'success':
             self._set_done()
-        else:  # 'failure'
-            # See https://www.payumoney.com/pdf/PayUMoney-Technical-Integration-Document.pdf
+
+        else:
             error_code = notification_data.get('Error')
             self._set_error(
                 "PayU: " + _(
