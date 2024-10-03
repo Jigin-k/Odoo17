@@ -10,7 +10,9 @@
     ],
     'assets': {
         'web.assets_backend': [
+            'weather_details/static/src/js/weather_icon.js',
             'weather_details/static/src/xml/weather.xml',
+
         ]
     },
 
