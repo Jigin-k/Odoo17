@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
   <t t-name="weather_icon" owl="1">
+
       <Dropdown>
           <t t-set-slot="toggler">
             <div class="new_icon">
@@ -14,23 +15,21 @@
               </div>
             </div>
           </t>
-          <DropdownItem>
-              <div>
+          <DropdownItem >
+              <div class="icon_div2">
                   <t t-if="state.weatherData">
-                  <div col="2">
                       <div>
-                           <h5><t t-esc="state.date"/></h5>
-                       <img class="card-img-top"
-                            t-attf-src="https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather02-512.png"
-                            style="padding: 0px; margin: 0px; height: 300px; width:300px;"/>
-                       </div>
+                          <h5><t t-esc="state.date"/></h5>
+                             <img class="card-img-top"
+                             t-attf-src="{{state.iconUrl}}"
+                             style="height: 50px; width:50px;"/>
+                      </div>
                       <div>
                           <h1><t t-esc="state.temp"/> &#176;
                           <t t-esc="state.weatherData.weather[0].main"/><br/></h1>
-                     <h5><t t-esc="state.weatherData.weather[0].description"/><span style="padding:5px">in</span>
+                          <h5><t t-esc="state.weatherData.weather[0].description"/><span style="padding:5px">in</span>
                          <t t-esc="state.weatherData.name"/></h5>
                       </div>
-                  </div>
                   </t>
 
               </div>
@@ -38,21 +37,3 @@
       </Dropdown>
  </t>
 </templates>
-<!--<t t-name="weather_icon">-->
-<!--  <div class="o_systray_icon" t-on-click="_onClick">-->
-<!--    &lt;!&ndash; Systray icon, can be customized as needed &ndash;&gt;-->
-<!--    <i class="fa fa-cloud"></i>-->
-<!--  </div>-->
-
-<!--  &lt;!&ndash; Dropdown to show weather data &ndash;&gt;-->
-<!--  <t t-if="state.showDropdown">-->
-<!--    <div class="dropdown-content">-->
-<!--      <p t-if="state.weatherData">-->
-<!--        <strong>Weather:</strong> <span t-esc="state.weatherData.weather[0].description"/>-->
-<!--      </p>-->
-<!--      <p t-if="state.weatherData">-->
-<!--        <strong>Temperature:</strong> <span t-esc="state.weatherData.main.temp"/>-->
-<!--      </p>-->
-<!--    </div>-->
-<!--  </t>-->
-<!--</t>-->
