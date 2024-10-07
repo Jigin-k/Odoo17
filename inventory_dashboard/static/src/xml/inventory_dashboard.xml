@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="inventory_dashboard.InventoryDashboard">
+        <div class="">
+            <div>
+                <center>
+                    <h1 style="margin:20px;">
+                    Inventory Dashboard</h1>
+                </center>
+            </div>
+        </div>
+    </t>
+</templates>
