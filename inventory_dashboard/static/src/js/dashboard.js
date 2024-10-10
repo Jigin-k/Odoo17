@@ -12,36 +12,19 @@ class InventoryDashboard extends Component {
     setup() {
         super.setup()
         this.orm = useService('orm')
+        this.rootRef = useRef('root')
          this.state = useState({
-            countDictionary : [],
-            op_types: [],
-            operations: [],
-            colors: [],
-            late_status: [],
-            waiting_status: [],
-            backorder_status: [],
-            MoveData: [],
-            operationDict: [],
-            category: [],
-            categCountDict: [],
-            categName: [],
             location_data: [],
-            monthly_stock: [],
-            monthly_stock_count: [],
-            out_stock: [],
-            out_stock_count: [],
-            dead_stock_name: [],
+            StockData: [],
         });
         this._inventory_data()
         this._storage_location()
+        this._stock_location_pie_chart()
         this.chart = null;
 
         onWillStart(async () => await loadBundle("web.chartjs_lib"));
         useEffect(() => {
-//            this.barChart();
-//            this.pieChart();
-//            this.doughnutChart();
-//            this.lineChart();
+        this._product_average_expense_graph()
         });
     }
 
@@ -53,12 +36,78 @@ class InventoryDashboard extends Component {
         });
     }
      async _storage_location(){
-        this.orm.call("stock.picking", "get_locations",
+        await this.orm.call("stock.picking", "get_locations",
         ).then((result) => {
             this.state.location_data = result
         });
     }
-
+    _product_average_expense_graph() {
+    // Call the ORM method to get average expense data
+    this.orm.call("stock.picking", "get_average_expense", []
+    ).then((result) => {
+    console.log(result)
+    var product_names = Object.keys(result);
+        console.log(product_names)
+    var avg_price = Object.values(result)
+        console.log(avg_price)
+    var ctx = $('#canvas_bar')
+    if (this.chart){
+    this.chart.destroy();
+    }
+    this.chart = new Chart(ctx, {
+    type: "bar",
+    data: {
+        labels: product_names,
+        datasets: [{
+            backgroundColor: [
+                            "#003f5c","#2f4b7c","#f95d6a","#665191",
+                            "#d45087","#ff7c43","#ffa600","#a05195",
+                            "#6d5c16","#CCCCFF"
+                        ],
+            data: avg_price
+        }]
+    },
+    options: {}
+      });
+    })
+   }
+    async _stock_location_pie_chart(){
+        this.orm.call("stock.move", "get_stock_moves", []
+        ).then( (result) => {
+            console.log(result)
+            var name = result.name
+            var count = result.count;
+            var stockMoveDict = {}
+            for (var i = 0; i < name.length; i++) {
+                var location = name[i];
+                var stockCount = count[i];
+                stockMoveDict[location] = stockCount;
+            }
+            this.state.StockData = stockMoveDict;
+            console.log(this.state.StockData)
+            var ctx = $('#canvas_pie')
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: name,
+                    datasets: [{
+                        label: 'Count',
+                        data: count,
+                        backgroundColor: [
+                            "#003f5c","#2f4b7c","#f95d6a","#665191",
+                            "#d45087","#ff7c43","#ffa600","#a05195",
+                            "#6d5c16","#CCCCFF"
+                        ],
+                        barThickness: 6,
+                        type: 'pie',
+                        fill: false
+                    }]
+                },
+                options: {
+                }
+            });
+        });
+    }
 }
 InventoryDashboard.template = "inventory_dashboard.InventoryDashboard";
 actionRegistry.add("inventory_dashboard_tag", InventoryDashboard);

@@ -55,3 +55,32 @@ class StockPicking(models.Model):
             value[rec.name] = on_hand_quantity
         print(value)
         return value
+
+    @api.model
+    def get_average_expense(self):
+        products = self.env['product.product'].search([])
+        print(products)
+        data = {}
+        for product in products:
+            if product.standard_price > 0:
+                data.update({product.name: product.standard_price})
+        print(data)
+        return data
+class StockMove(models.Model):
+    _inherit = 'stock.move'
+
+    @api.model
+    def get_stock_moves(self):
+        query = ('''select stock_location.name, count(stock_move.id) from stock_move 
+                inner join stock_location on stock_move.location_id = stock_location.id where stock_move.state = 'done' 
+                group by stock_location.name''')
+        self._cr.execute(query)
+        stock_move = self._cr.dictfetchall()
+        count = []
+        name = []
+        for record in stock_move:
+            count.append(record.get('count'))
+            name.append(record.get('complete_name'))
+        value = {'name': name, 'count': count}
+        print(value)
+        return value

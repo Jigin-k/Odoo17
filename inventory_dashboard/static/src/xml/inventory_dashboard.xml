@@ -1,142 +1,191 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="inventory_dashboard.InventoryDashboard">
-        <div class="" style="max-height: 80vh; overflow-y: auto; padding: 10px;">
+        <div class=""
+             style="max-height: 100vh; overflow-y:auto; padding: 10px;">
             <div>
-                <center>
-                    <h1 style="margin:20px;">
-                    Inventory Dashboard</h1>
-                </center>
+                <div>
+                    <center>
+                        <h1 style="margin:20px;">
+                            Inventory Dashboard
+                        </h1>
+                    </center>
+                </div>
             </div>
-        </div>
-        <div class="row main-section" style="margin-left: 120px;">
-<!--            Incoming Tile-->
-            <div id="incoming_tile" class="col-md-4 col-sm-6 tot_tasks oh-payslip"
-                 style=" overflow: hidden; padding-top: 30px;">
-                <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
+            <div class="row main-section" style="margin-left: 120px;">
+                <!--            Incoming Tile-->
+                <div id="incoming_tile"
+                     class="col-md-4 col-sm-6 tot_tasks oh-payslip"
+                     style="overflow: hidden; padding-top: 30px;">
+                    <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
                 display: flex; justify-content: center;" role="button">
-                    <div class="oh-card-body"
-                         style="padding: 5px 5px; float: left; width: 100%;
+                        <div class="oh-card-body"
+                             style="padding: 5px 5px; float: left; width: 100%;
                           height: auto; box-sizing: border-box; margin: 0;">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
-                                <div style="background:#ff4d94; width:65px; text-align: center;">
+                            <div class="stat-widget-one">
+                                <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
+                                    <div style="background:#ff4d94; width:65px; text-align: center;">
                                         <i class="fa fas fa-shipping-fast"
-                                       style="font-size:50px;"/>
-                                </div>
-                                <div class="stat_content" style="
+                                           style="font-size:50px;"/>
+                                    </div>
+                                    <div class="stat_content" style="
                                   text-align: center; font-weight: bold;
                                   padding-top: 20px; padding-left: 80px;">
-                                    <div class="stat_count_lead"
-                                         style="font-size: 17px;">
-                                        <span id="templates">
-                                             <div id="incoming_operations"/>
-                                        </span>
-                                    </div>
-                                    <div class="stat-head"
-                                         style="font-size: 14px;">Stock Incoming
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-<!--       Outgoing Tile-->
-            <div id="outgoing_tile" class="col-md-4 col-sm-6 tot_tasks oh-payslip"
-                 style=" overflow: hidden; padding-top: 30px;">
-                <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
-                display: flex; justify-content: center;" role="button">
-                    <div class="oh-card-body"
-                         style="padding: 5px 5px; float: left; width: 100%;
-                          height: auto; box-sizing: border-box; margin: 0;">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
-                                <div style="background:yellow; width:65px; text-align: center;">
-                                    <i class="fa far fa-inventory"
-                                       style="font-size:50px;"/>
-                                </div>
-                                <div class="stat-content" style="
-                                  text-align: center; font-weight: bold;
-                                  padding-top: 20px; padding-left: 80px;">
-                                    <div class="stat_count_opp"
-                                         style="font-size: 17px;">
-                                        <span id="templates">
-                                             <div id="outgoing_operations"/>
-                                        </span>
-                                    </div>
-                                    <div class="stat-head"
-                                         style="font-size: 14px;">Stock Outgoing
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-<!--            Internal Transfer Tile -->
-            <div id="internal_transfer_tile"
-                 class="col-md-4 col-sm-6 tot_tasks oh-payslip"
-                 style=" overflow: hidden; padding-top: 30px;">
-                <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
-                display: flex; justify-content: center;" role="button">
-                    <div class="oh-card-body"
-                         style="padding: 5px 5px; float: left; width: 100%;
-                          height: auto; box-sizing: border-box; margin: 0;">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
-                                <div style="background:#bf80ff;; width:65px; text-align: center;">
-                                    <i class="fa far fa-warehouse"
-                                       style="font-size:50px;"/>
-                                </div>
-                                <div class="stat-content" style="
-                                  text-align: center; font-weight: bold;
-                                  padding-top: 20px; padding-left: 80px;">
-                                    <div class="stat_count_ex_rev"
-                                         style="font-size: 17px;">
-                                        <span id="templates">
-                                             <div id="internal_transfers"/>
-                                        </span>
+                                        <div class="stat_count_lead"
+                                             style="font-size: 17px;">
+                                            <span id="templates">
+                                                <div id="incoming_operations"/>
+                                            </span>
                                         </div>
-                                    <div class="stat-head"
-                                         style="font-size: 14px;">Internal Transfers
+                                        <div class="stat-head"
+                                             style="font-size: 14px;">Stock
+                                            Incoming
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <!--       Outgoing Tile-->
+                <div id="outgoing_tile"
+                     class="col-md-4 col-sm-6 tot_tasks oh-payslip"
+                     style="overflow: hidden; padding-top: 30px;">
+                    <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
+                display: flex; justify-content: center;" role="button">
+                        <div class="oh-card-body"
+                             style="padding: 5px 5px; float: left; width: 100%;
+                          height: auto; box-sizing: border-box; margin: 0;">
+                            <div class="stat-widget-one">
+                                <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
+                                    <div style="background:yellow; width:65px; text-align: center;">
+                                        <i class="fa far fa-inventory"
+                                           style="font-size:50px;"/>
+                                    </div>
+                                    <div class="stat-content" style="
+                                  text-align: center; font-weight: bold;
+                                  padding-top: 20px; padding-left: 80px;">
+                                        <div class="stat_count_opp"
+                                             style="font-size: 17px;">
+                                            <span id="templates">
+                                                <div id="outgoing_operations"/>
+                                            </span>
+                                        </div>
+                                        <div class="stat-head"
+                                             style="font-size: 14px;">Stock
+                                            Outgoing
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--            Internal Transfer Tile -->
+                <div id="internal_transfer_tile"
+                     class="col-md-4 col-sm-6 tot_tasks oh-payslip"
+                     style="overflow: hidden; padding-top: 30px;">
+                    <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
+                display: flex; justify-content: center;" role="button">
+                        <div class="oh-card-body"
+                             style="padding: 5px 5px; float: left; width: 100%;
+                          height: auto; box-sizing: border-box; margin: 0;">
+                            <div class="stat-widget-one">
+                                <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
+                                    <div style="background:#bf80ff;; width:65px; text-align: center;">
+                                        <i class="fa far fa-warehouse"
+                                           style="font-size:50px;"/>
+                                    </div>
+                                    <div class="stat-content" style="
+                                  text-align: center; font-weight: bold;
+                                  padding-top: 20px; padding-left: 80px;">
+                                        <div class="stat_count_ex_rev"
+                                             style="font-size: 17px;">
+                                            <span id="templates">
+                                                <div id="internal_transfers"/>
+                                            </span>
+                                        </div>
+                                        <div class="stat-head"
+                                             style="font-size: 14px;">Internal
+                                            Transfers
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <!--            bar chart-->
+                <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4"
+                     style="width:90%;">
+                    <div class="chart-container card-shadow" id="tiles">
+                        <div style="height: 20px; max-height: 20px; text-align:center;">
+                            <h2>Average Product Price</h2>
+                        </div>
+                        <div class="graph_canvas" style="margin-top: 30px;">
+                            <canvas id="canvas_bar" height="50px"
+                                    width="150px"/>
+                        </div>
+                    </div>
+                </div>
+                <!--                location piechart-->
+                <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4">
+                    <div class="chart-container card-shadow" id="tiles">
+                        <div style="height: 20px; max-height: 20px;"
+                             class="d-flex justify-content-between align-items-center">
+                            <h2>Stock Moves By Location</h2>
+                            <div class="form-group col-2"
+                                 id="stock_move_select">
+                            </div>
+                            <hr/>
+                            <div class="graph_canvas" style="margin-top: 30px;">
+                                <canvas id="canvas_pie" height="500px"
+                                        width="150px"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4">
-					<div class="chart-container card-shadow" id="tiles">
-						<div style="height: 20px; max-height: 20px">
-							<h2>Locations</h2>
-						</div>
-						<hr/>
-						<table style="margin-top: 30px;" class="table table-hover"
-							   id="location_table">
-							<thead>
-								<tr>
-									<th><h2>Location</h2></th>
-									<th><h2 style="text-align: center;">On Hand Quantity</h2></th>
-								</tr>
-							</thead>
-							<tbody class="storage">
-								<t t-foreach="state.location_data" t-as="location" t-key="location_index">
-									<tr>
-										<td>
-											<t t-out="location"/>
-										</td>
-										<td class="location_table_value">
-											<t t-esc="state.location_data[location]"/>
-										</td>
-									</tr>
-	                    		</t>
-							</tbody>
-						</table>
-					</div>
-				</div>
+                <!--                location On hand Count table-->
+                <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4">
+                    <div class="chart-container card-shadow" id="tiles">
+                        <div style="height: 20px; max-height: 20px; text-align:center;">
+                            <h2>Locations</h2>
+                        </div>
+                        <hr/>
+                        <table style="margin-top: 30px;"
+                               class="table table-hover" id="location_table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <h2>Location</h2>
+                                    </th>
+                                    <th>
+                                        <h2 style="text-align: center;">On Hand
+                                            Quantity
+                                        </h2>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="storage">
+                                <t t-foreach="state.location_data"
+                                   t-as="location" t-key="location_index">
+                                    <tr>
+                                        <td>
+                                            <t t-out="location"/>
+                                        </td>
+                                        <td class="location_table_value">
+                                            <t t-esc="state.location_data[location]"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </t>
 </templates>

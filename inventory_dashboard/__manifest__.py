@@ -13,6 +13,11 @@
             'inventory_dashboard/static/src/xml/inventory_dashboard.xml',
             'inventory_dashboard/static/src/js/dashboard.js',
         ],
+    "web.chartjs_lib": [
+            '/web/static/lib/Chart/Chart.js',
+            '/web/static/lib/chartjs-adapter-luxon/chartjs-adapter-luxon.js',
+        ]
+
     },
     'license': 'LGPL-3',
     'installable': True,
