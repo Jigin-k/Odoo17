@@ -66,6 +66,8 @@ class StockPicking(models.Model):
                 data.update({product.name: product.standard_price})
         print(data)
         return data
+
+
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
@@ -80,7 +82,53 @@ class StockMove(models.Model):
         name = []
         for record in stock_move:
             count.append(record.get('count'))
-            name.append(record.get('complete_name'))
+            name.append(record.get('name'))
         value = {'name': name, 'count': count}
         print(value)
         return value
+
+class StockMoveLine(models.Model):
+
+    _inherit = "stock.move.line"
+
+    @api.model
+    def get_product_moves(self):
+
+        query = ('''select product_template.name->>'en_US' as name, 
+       sum(stock_move_line.quantity)as total_quantity from stock_move_line
+       inner join product_product ON stock_move_line.product_id = product_product.id
+       inner join product_template ON product_product.product_tmpl_id = product_template.id
+       group by product_template.name->>'en_US' order by total_quantity DESC;''')
+        self._cr.execute(query)
+        products_quantity = self._cr.dictfetchall()
+        quantity = []
+        name = []
+        for record in products_quantity:
+            quantity.append(record.get('total_quantity'))
+            name.append(record.get('name'))
+        value = {'name': name, 'count': quantity}
+        print(value)
+        return value
+
+class StockValuationLayer(models.Model):
+
+    _inherit = "stock.valuation.layer"
+
+    @api.model
+    def get_stock_value(self):
+
+        query = ('''select product_template.name->>'en_US' as name,
+       sum(stock_valuation_layer.value)as total_value from stock_valuation_layer
+       inner join product_product ON stock_valuation_layer.product_id = product_product.id
+       inner join product_template ON product_product.product_tmpl_id = product_template.id
+       group by product_template.name->>'en_US' order by total_value DESC;''')
+        self._cr.execute(query)
+        stock_value = self._cr.dictfetchall()
+        value = []
+        name = []
+        for record in stock_value:
+            value.append(record.get('total_value'))
+            name.append(record.get('name'))
+        result = {'name': name, 'stock_value': value}
+        print(value)
+        return result

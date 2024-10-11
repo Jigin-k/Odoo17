@@ -16,7 +16,7 @@
                 <!--            Incoming Tile-->
                 <div id="incoming_tile"
                      class="col-md-4 col-sm-6 tot_tasks oh-payslip"
-                     style="overflow: hidden; padding-top: 30px;">
+                     style="overflow: hidden; padding-top: 30px;" t-on-click="redirectToIncoming">
                     <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
                 display: flex; justify-content: center;" role="button">
                         <div class="oh-card-body"
@@ -50,7 +50,7 @@
                 <!--       Outgoing Tile-->
                 <div id="outgoing_tile"
                      class="col-md-4 col-sm-6 tot_tasks oh-payslip"
-                     style="overflow: hidden; padding-top: 30px;">
+                     style="overflow: hidden; padding-top: 30px;" t-on-click="redirectToOutgoing">
                     <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
                 display: flex; justify-content: center;" role="button">
                         <div class="oh-card-body"
@@ -84,7 +84,7 @@
                 <!--            Internal Transfer Tile -->
                 <div id="internal_transfer_tile"
                      class="col-md-4 col-sm-6 tot_tasks oh-payslip"
-                     style="overflow: hidden; padding-top: 30px;">
+                     style="overflow: hidden; padding-top: 30px;" t-on-click="redirectToInternalTransfer">
                     <div class="oh-card" style="box-shadow:2px 4px 8px 2px rgba(0,0,0.3,0.2);
                 display: flex; justify-content: center;" role="button">
                         <div class="oh-card-body"
@@ -129,20 +129,18 @@
                         </div>
                     </div>
                 </div>
+
                 <!--                location piechart-->
-                <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4">
+
+                <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4"
+                     style="height: 400px; width: 400px; ">
                     <div class="chart-container card-shadow" id="tiles">
-                        <div style="height: 20px; max-height: 20px;"
-                             class="d-flex justify-content-between align-items-center">
+                        <div style="height: 20px; max-height: 20px; text-align:center;">
                             <h2>Stock Moves By Location</h2>
-                            <div class="form-group col-2"
-                                 id="stock_move_select">
-                            </div>
-                            <hr/>
-                            <div class="graph_canvas" style="margin-top: 30px;">
-                                <canvas id="canvas_pie" height="500px"
-                                        width="150px"/>
-                            </div>
+                        </div>
+                        <div class="graph_canvas" style="margin-top: 30px;">
+                            <canvas id="canvas_pie"
+                                    style="height: 400px; width: 400px;"/>
                         </div>
                     </div>
                 </div>
@@ -184,6 +182,57 @@
                         </table>
                     </div>
                 </div>
+                <hr/>
+
+
+                <!--                product move barchart-->
+                <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4"
+                     style="width:90%;">
+                    <div class="chart-container card-shadow" id="tiles">
+                        <div style="height: 20px; max-height: 20px; text-align:center;">
+                            <h2>Product Move Chart</h2>
+                        </div>
+                        <div class="form-group col-2"
+                             id="top_product_button" style="float:right;">
+                            <select id="top_product_selection"
+                                    class="btn btn-primary"
+                                    t-on-change="onchange_top_product_selection"
+                                    style="color:black;">
+                                <option id="top_last_10_days"
+                                        value="top_last_10_days"
+                                        selected="selected">Incoming
+                                </option>
+                                <option id="top_last_30_days"
+                                        value="top_last_30_days">Outgoing
+                                </option>
+                                <option id="top_last_3_month"
+                                        value="top_last_3_month">Internal
+                                    Transfer
+                                </option>
+                            </select>
+                        </div>
+                        <div class="graph_canvas" style="margin-top: 30px;">
+                            <canvas id="product_move_bar" height="50px"
+                                    width="150px"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                 stock valuation doughnut chart;-->
+
+                <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4"
+                     style="height: 400px; width: 400px; ">
+                    <div class="chart-container card-shadow" id="tiles">
+                        <div style="height: 20px; max-height: 20px; text-align:center;">
+                            <h2>Stock Valuation Graph</h2>
+                        </div>
+                        <div class="graph_canvas" style="margin-top: 30px;">
+                            <canvas id="canvas_doughnut"
+                                    style="height: 400px; width: 400px;"/>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
         </div>
