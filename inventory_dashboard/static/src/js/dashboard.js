@@ -10,6 +10,7 @@ class InventoryDashboard extends Component {
     setup() {
         super.setup()
         this.orm = useService('orm')
+        this.rotRef = useRef('root')
          this.state = useState({
             location_data: [],
             StockData: [],
@@ -42,10 +43,10 @@ class InventoryDashboard extends Component {
         await this.orm.call("stock.picking", "get_locations",
         ).then((result) => {
             this.state.location_data = result
+            console.log(this.state.location_data,"qqqqq")
         });
     }
     _product_average_expense_graph() {
-    // Call the ORM method to get average expense data
     this.orm.call("stock.picking", "get_average_expense", []
     ).then((result) => {
     var product_names = Object.keys(result);
@@ -105,8 +106,6 @@ class InventoryDashboard extends Component {
                         fill: false
                     }]
                 },
-                options: {
-                }
             });
         });
     }
@@ -165,6 +164,41 @@ class InventoryDashboard extends Component {
      });
     }
 
+   async onchange_filter_selection() {
+  const option = document.getElementById("filter_selection").value;
+
+  if (option === "this_week" || option === "this_month" || option === "this_year") {
+      const result = await this.orm.call("stock.move", "get_filter_product_moves", [option]);
+
+      const ctx = document.getElementById("product_move_bar");
+
+      if (this.productChart) {
+        this.productChart.destroy();
+      }
+
+      this.productChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: result.name,
+          datasets: [
+            {
+              label: "Count",
+              data: result.count,
+              backgroundColor: [
+                "#003f5c", "#2f4b7c", "#f95d6a", "#665191",
+                "#d45087", "#ff7c43", "#ffa600", "#a05195",
+                "#6d5c16", "#CCCCFF",
+              ],
+            },
+          ],
+        },
+      });
+
+  }
+  else{
+    this._product_move_chart()
+  }
+}
     redirectToIncoming(){
  this.env.services.action.doAction({
          type: 'ir.actions.act_window',
@@ -197,10 +231,23 @@ class InventoryDashboard extends Component {
          views: [[false, "list"], [false, "form"]],
          target: 'current',
         domain : [['picking_type_id.code', '=','internal'],
-                                           ['state', 'not in',
-                                            ['done', 'cancel']]]
+                  ['state', 'not in',['done', 'cancel']]]
        });
  }
+RedirectLocation(location){
+console.log(location)
+ this.env.services.action.doAction({
+         type: 'ir.actions.act_window',
+         name: 'Location',
+         res_model: 'stock.quant',
+         views: [[false, "list"], [false, "form"]],
+         target: 'current',
+           domain : [['location_id.name', '=',location]]
+                });
+ }
+
+
+
 
 }
 InventoryDashboard.template = "inventory_dashboard.InventoryDashboard";

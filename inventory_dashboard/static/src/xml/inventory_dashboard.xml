@@ -2,7 +2,7 @@
 <templates>
     <t t-name="inventory_dashboard.InventoryDashboard">
         <div class=""
-             style="max-height: 100vh; overflow-y:auto; padding: 10px;">
+             style="max-height: 100vh; overflow-y:auto; padding: 10px;" t-ref="root">
             <div>
                 <div>
                     <center>
@@ -25,7 +25,7 @@
                             <div class="stat-widget-one">
                                 <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
                                     <div style="background:#ff4d94; width:65px; text-align: center;">
-                                        <i class="fa fas fa-shipping-fast"
+                                        <i class="fa fa-truck"
                                            style="font-size:50px;"/>
                                     </div>
                                     <div class="stat_content" style="
@@ -59,7 +59,7 @@
                             <div class="stat-widget-one">
                                 <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
                                     <div style="background:yellow; width:65px; text-align: center;">
-                                        <i class="fa far fa-inventory"
+                                        <i class="fa fa-truck"
                                            style="font-size:50px;"/>
                                     </div>
                                     <div class="stat-content" style="
@@ -93,7 +93,7 @@
                             <div class="stat-widget-one">
                                 <div class="stat-icon bg-mauve-light d-flex justify-content-left align-items-left">
                                     <div style="background:#bf80ff;; width:65px; text-align: center;">
-                                        <i class="fa far fa-warehouse"
+                                        <i class="fa fa-tasks"
                                            style="font-size:50px;"/>
                                     </div>
                                     <div class="stat-content" style="
@@ -115,7 +115,6 @@
                         </div>
                     </div>
                 </div>
-                <hr/>
                 <!--            bar chart-->
                 <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4"
                      style="width:90%;">
@@ -146,8 +145,8 @@
                 </div>
 
                 <!--                location On hand Count table-->
-                <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4">
-                    <div class="chart-container card-shadow" id="tiles">
+                <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4" >
+                    <div class="chart-container card-shadow" id="tiles" style="float:right;">
                         <div style="height: 20px; max-height: 20px; text-align:center;">
                             <h2>Locations</h2>
                         </div>
@@ -169,11 +168,11 @@
                             <tbody class="storage">
                                 <t t-foreach="state.location_data"
                                    t-as="location" t-key="location_index">
-                                    <tr>
+                                    <tr t-on-click="() => this.RedirectLocation(location)">
                                         <td>
                                             <t t-out="location"/>
                                         </td>
-                                        <td class="location_table_value">
+                                        <td class="location_table_value" >
                                             <t t-esc="state.location_data[location]"/>
                                         </td>
                                     </tr>
@@ -182,33 +181,34 @@
                         </table>
                     </div>
                 </div>
-                <hr/>
 
 
                 <!--                product move barchart-->
                 <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4"
-                     style="width:90%;">
+                     style="width:60%;">
                     <div class="chart-container card-shadow" id="tiles">
                         <div style="height: 20px; max-height: 20px; text-align:center;">
                             <h2>Product Move Chart</h2>
                         </div>
                         <div class="form-group col-2"
                              id="top_product_button" style="float:right;">
-                            <select id="top_product_selection"
-                                    class="btn btn-primary"
-                                    t-on-change="onchange_top_product_selection"
-                                    style="color:black;">
-                                <option id="top_last_10_days"
-                                        value="top_last_10_days"
-                                        selected="selected">Incoming
+                            <select id="filter_selection"
+                                    t-on-change="onchange_filter_selection"
+                                    style="color:black; " t-ref="filter">
+                                 <option id="all_moves"
+                                        value="all_moves">All Moves
                                 </option>
-                                <option id="top_last_30_days"
-                                        value="top_last_30_days">Outgoing
+                                <option id="this_year"
+                                        value="this_year">This Year
                                 </option>
-                                <option id="top_last_3_month"
-                                        value="top_last_3_month">Internal
-                                    Transfer
+
+                                <option id="this_month"
+                                        value="this_month">This Month
                                 </option>
+                                <option id="this_week"
+                                        value="this_week">This Week
+                                </option>
+
                             </select>
                         </div>
                         <div class="graph_canvas" style="margin-top: 30px;">
@@ -222,7 +222,7 @@
 
                 <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4"
                      style="height: 400px; width: 400px; ">
-                    <div class="chart-container card-shadow" id="tiles">
+                    <div class="chart-container card-shadow" id="tiles" >
                         <div style="height: 20px; max-height: 20px; text-align:center;">
                             <h2>Stock Valuation Graph</h2>
                         </div>
@@ -231,7 +231,7 @@
                                     style="height: 400px; width: 400px;"/>
                         </div>
                     </div>
-                </div>
+                </div>c
 
 
             </div>

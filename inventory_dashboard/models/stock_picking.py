@@ -87,6 +87,41 @@ class StockMove(models.Model):
         print(value)
         return value
 
+    @api.model
+    def get_filter_product_moves(self,filter_type):
+        time_filter = ''
+        if filter_type == 'this_week':
+            time_filter = "EXTRACT('WEEK' FROM stock_move.date) = EXTRACT('WEEK' FROM CURRENT_DATE)"
+        elif filter_type == 'this_month':
+            time_filter = "EXTRACT('MONTH' FROM stock_move.date) = EXTRACT('MONTH' FROM CURRENT_DATE)"
+        elif filter_type == 'this_year':
+            time_filter = "EXTRACT('YEAR' FROM stock_move.date) = EXTRACT('YEAR' FROM CURRENT_DATE)"
+
+        query = (f'''select product_template.name->>'en_US' as name, 
+               sum(product_uom_qty) as total_quantity
+        from stock_move
+		inner join stock_picking on stock_move.picking_id = stock_picking.id
+		inner join stock_picking_type on stock_picking.picking_type_id = stock_picking_type.id
+        inner JOIN product_product 
+            on stock_move.product_id = product_product.id
+        inner JOIN product_template 
+            on product_product.product_tmpl_id = product_template.id
+			where {time_filter}
+        group by product_template.name->>'en_US'
+        order by total_quantity DESC''')
+        self._cr.execute(query)
+        products_quantity = self._cr.dictfetchall()
+        quantity = []
+        name = []
+        for record in products_quantity:
+            quantity.append(record.get('total_quantity'))
+            name.append(record.get('name'))
+        value = {'name': name, 'count': quantity}
+        print(value)
+        return value
+
+
+
 class StockMoveLine(models.Model):
 
     _inherit = "stock.move.line"
