@@ -221,7 +221,7 @@
                 <!--                 stock valuation doughnut chart;-->
 
                 <div class="year_to_date_graph_div col-sm-12 col-md-6 my-4"
-                     style="height: 400px; width: 400px; ">
+                     style="height: 400px; width: 400px;">
                     <div class="chart-container card-shadow" id="tiles" >
                         <div style="height: 20px; max-height: 20px; text-align:center;">
                             <h2>Stock Valuation Graph</h2>

@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 {
     'name': 'Inventory Dashboard ',
-    # 'version': '18.0.1.0.0',
     'category': 'Warehouse',
     'description': """""",
     'author': 'Jigin',
@@ -14,11 +14,6 @@
             'inventory_dashboard/static/src/js/dashboard.js',
             'https://cdn.jsdelivr.net/npm/chart.js',
         ],
-        # "web.chartjs_lib": [
-        #     '/web/static/lib/Chart/Chart.js',
-        #     '/web/static/lib/chartjs-adapter-luxon/chartjs-adapter-luxon.js',
-        # ]
-
     },
     'license': 'LGPL-3',
     'installable': True,
