@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="order_list_view">
+        <field name="name">search.result.list</field>
+        <field name="model">search.result</field>
+        <field name="arch" type="xml">
+            <list >
+                <field name="search_id" invisible="1"/>
+               <field name="name"/>
+               <field name="record_id" invisible="1"/>
+            </list>
+        </field>
+    </record>
+  <record model="ir.ui.view" id="order_form_view">
+        <field name="name">search.result.form</field>
+        <field name="model">search.result</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                <field name="search_id"/>
+               <field name="name"/>
+               <field name="record_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+        <record id="search_result_action" model="ir.actions.act_window">
+        <field name="name">XSearch Result</field>
+        <field name="res_model">search.result</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
