@@ -8,16 +8,21 @@
                     <field name='name'/>
                     <field name='model_id'/>
                     <field name='field_id'
-                           domain="[('model_id', '=', model_id)]"/>
+                           domain="[('model_id', '=', model_id)]"
+                           invisible="not model_id"/>
                     <button name="search_content" string="Search" type="object"
                             class="btn-primary"/>
                 </group>
                 <notebook>
                     <page string="Records" name="records">
                         <field name="records">
-                                                        <list>
-                                                            <field name="name"/>
-                                                        </list>
+                            <list>
+                                <field name="name"/>
+                                <field name="create_date"/>
+                                <field name="model_name"/>
+                                <field name="field_name"/>
+                                <button name="redirect_to_model" type="object" icon="fa-external-link"/>
+                            </list>
                         </field>
                     </page>
                 </notebook>
@@ -35,3 +40,5 @@
               action="data_search_acton"/>
 
 </odoo>
+
+

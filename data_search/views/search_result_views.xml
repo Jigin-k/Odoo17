@@ -21,6 +21,10 @@
                 <field name="search_id"/>
                <field name="name"/>
                <field name="record_id"/>
+               <field name="create_date"/>
+               <field name="model_id"/>
+               <field name="model_name"/>
+               <field name="field_name"/>
                 </group>
             </form>
         </field>
