@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_limit_location" model="ir.ui.view">
+        <field name="name">stock.location.form.inherit</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <field name="usage" position="after">
+                <field name="max_capacity"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_limit_location_tree" model="ir.ui.view">
+        <field name="name">stock.location.list.inherit</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_tree2"/>
+        <field name="arch" type="xml">
+            <field name="complete_name" position="after">
+                <field name="max_capacity"/>
+                <field name="product_id" invisible="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>
