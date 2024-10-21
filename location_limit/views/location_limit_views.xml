@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_product_location_limit_form" model="ir.ui.view">
+        <field name="name">location.limit.form</field>
+        <field name="model">location.limit</field>
+        <field name="arch" type="xml">
+            <form string="Product Location Limit">
+                <sheet>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="location_id"/>
+                        <field name="max_quantity"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_product_location_limit_tree" model="ir.ui.view">
+        <field name="name">location.limit.tree</field>
+        <field name="model">location.limit</field>
+        <field name="arch" type="xml">
+            <list string="Product Location Limit" editable="bottom">
+                <field name="product_id"/>
+                <field name="location_id"/>
+                <field name="max_quantity"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="location_limit_acton" model="ir.actions.act_window">
+        <field name="name">Location Limit</field>
+        <field name="res_model">location.limit</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="location_limit_menu_root" name="Location Limit"
+              action="location_limit_acton"/>
+
+</odoo>
