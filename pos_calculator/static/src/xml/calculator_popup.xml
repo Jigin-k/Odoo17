@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
     <t t-name="pos_calculator.CalculatorPopup">
-
+        <Dialog >
+            <div class="calculator-popup">
+                <div class="display">
+                    <input type="text" t-att-value="this.state.value" readonly="readonly" class="calculator-display"/>
+                </div>
+                <div class="p-1 rounded-3 bg-200">
+                    <button t-on-click="() => append('1')">1</button>
+                    <button t-on-click="() => append('2')">2</button>
+                    <button t-on-click="() => append('3')">3</button>
+                    <button t-on-click="() => append('+')">+</button>
+                <br/>
+                    <button t-on-click="() => append('4')">4</button>
+                    <button t-on-click="() => append('5')">5</button>
+                    <button t-on-click="() => append('6')">6</button>
+                    <button t-on-click="() => append('-')">_</button>
+                    <br/>
+                    <button t-on-click="() => append('7')">7</button>
+                    <button t-on-click="() => append('8')">8</button>
+                    <button t-on-click="() => append('9')">9</button>
+                    <button t-on-click="() => append('*')">*</button>
+                    <br/>
+                    <button t-on-click="clear()">C</button>
+                    <button t-on-click="() => append('0')">0</button>
+                    <button t-on-click="calculate()">=</button>
+                    <button t-on-click="() => append('/')">/</button>
+                </div>
+            </div>
+        </Dialog>
     </t>
 </templates>
+

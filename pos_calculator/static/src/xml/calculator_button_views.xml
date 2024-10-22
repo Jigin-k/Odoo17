@@ -5,7 +5,7 @@
        t-inherit-mode="extension" owl="1">
         <xpath expr="//div[hasclass('control-buttons')]" position="inside">
                 <button class="control-button btn btn-secondary btn-lg py-5"
-                t-on-click="() => this.CalculatorPopup()" >
+                t-on-click="() => this.onclickCalculator()" >
                     <i class="fa fa-calculator"/>
                     <span>Calculator</span>
                 </button>
