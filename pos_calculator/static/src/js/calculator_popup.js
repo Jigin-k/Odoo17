@@ -2,58 +2,44 @@ import { _t } from "@web/core/l10n/translation";
 import { useBus, useService } from "@web/core/utils/hooks";
 import { Component, useState } from "@odoo/owl";
 import { Dialog } from "@web/core/dialog/dialog";
-import { Numpad, buttonsType } from "@point_of_sale/app/generic_components/numpad/numpad";
+import { CalculatorNumpad,CalculatorButtonsType } from "@pos_calculator/js/calculator_buttons";
 
-export class CalculatorPopup extends Component {
-    static template = "pos_calculator.CalculatorPopup";
-    static components = { Numpad,Dialog };
+export class CalculatorPopup extends Component{
+    static template = "pos_calculator.Calculator_popup";
+    static components = { CalculatorNumpad, Dialog };
     static props = {
         title: { type: String, optional: true },
         subtitle: { type: String, optional: true },
-        startingValue: { type: String, optional: true },
+        buttons: { type: CalculatorButtonsType, optional: true },
+        startingValue: { type: [Number, String], optional: true },
+        feedback: { type: Function, optional: true },
+        formatDisplayedValue: { type: Function, optional: true },
+        placeholder: { type: String, optional: true },
+        isValid: { type: Function, optional: true },
         close: Function,
-        getPayload: Function
     };
     static defaultProps = {
-        title: _t("Calculator"),
-        startingValue: "0",
+        title: _t("Confirm?"),
+        startingValue: "",
+        isValid: () => true,
+        formatDisplayedValue: (x) => x,
+        feedback: () => false,
     };
 
     setup() {
-        this.state = useState({
-            value: this.props.startingValue,
+        this.numberBuffer = useService("number_buffer");
+        this.numberBuffer.use({
+            triggerAtEnter: () => this.confirm(),
+            triggerAtEscape: () => this.cancel(),
         });
-
-        // Bind methods to maintain context
-        this.append = this.append.bind(this);
-        this.calculate = this.calculate.bind(this);
-        this.clear = this.clear.bind(this);
-        this.closePopup = this.closePopup.bind(this);
+        this.state = useState({
+            buffer: this.props.startingValue,
+        });
+        useBus(this.numberBuffer, "buffer-update", ({ detail: value }) => {
+            this.state.buffer = value;
+        });
     }
-
-    append(value) {
-    console.log(this.state.value)
-        if (this.state.value === "0") {
-            this.state.value = value;
-        } else {
-            this.state.value += value;
-        }
-        console.log(this.state.value)
-    }
-
-    calculate() {
-        try {
-            this.state.value = eval(this.state.value).toString();
-        } catch (error) {
-            this.state.value = "Error";
-        }
-    }
-
-    clear() {
-        this.state.value = "0";
-    }
-
-    closePopup() {
+    confirm() {
         this.props.close();
     }
 }

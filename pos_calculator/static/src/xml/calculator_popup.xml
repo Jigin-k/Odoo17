@@ -1,34 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <t t-name="pos_calculator.CalculatorPopup">
-        <Dialog >
-            <div class="calculator-popup">
-                <div class="display">
-                    <input type="text" t-att-value="this.state.value" readonly="readonly" class="calculator-display"/>
-                </div>
-                <div class="p-1 rounded-3 bg-200">
-                    <button t-on-click="() => append('1')">1</button>
-                    <button t-on-click="() => append('2')">2</button>
-                    <button t-on-click="() => append('3')">3</button>
-                    <button t-on-click="() => append('+')">+</button>
-                <br/>
-                    <button t-on-click="() => append('4')">4</button>
-                    <button t-on-click="() => append('5')">5</button>
-                    <button t-on-click="() => append('6')">6</button>
-                    <button t-on-click="() => append('-')">_</button>
-                    <br/>
-                    <button t-on-click="() => append('7')">7</button>
-                    <button t-on-click="() => append('8')">8</button>
-                    <button t-on-click="() => append('9')">9</button>
-                    <button t-on-click="() => append('*')">*</button>
-                    <br/>
-                    <button t-on-click="clear()">C</button>
-                    <button t-on-click="() => append('0')">0</button>
-                    <button t-on-click="calculate()">=</button>
-                    <button t-on-click="() => append('/')">/</button>
+    <t t-name="pos_calculator.Calculator_popup">
+        <Dialog title="props.title" bodyClass="'d-flex flex-column justify-content-center'" size="'sm'">
+            <div t-if="props.subtitle" class="subtitle p-1 mx-auto" t-esc="props.subtitle"/>
+            <div class="input-symbol mb-3">
+                <div class="popup-input value active form-control form-control-lg text-center">
+                    <span t-if="this.state.buffer || !props.placeholder" class="input-value" t-esc="props.formatDisplayedValue(this.state.buffer || '')"/>
+                    <span t-else="" class="text-muted" t-esc="props.placeholder"/>
                 </div>
             </div>
+            <div t-if="props.feedback(this.state.buffer)" class="p-2 mx-auto mt-n2 mb-2" t-esc="props.feedback(this.state.buffer)" />
+            <t t-log="props"/>
+            <CalculatorNumpad buttons="props.buttons" class="'p-1 rounded-3 bg-200'"/>
         </Dialog>
     </t>
 </templates>
-
