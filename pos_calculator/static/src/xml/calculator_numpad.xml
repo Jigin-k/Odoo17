@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-  <t t-name="pos_calculator.CalculatorNumpad">
-    <div t-attf-class="d-grid numpad" style="grid-template-columns: repeat(4, 1fr);">
-      <t t-foreach="buttons" t-as="button" t-key="button.value">
-        <span t-if="Object.keys(button).length === 0"/>
-        <button
-          t-else=""
-          t-attf-class="numpad-button btn btn-light btn-lg fs-3 lh-lg m-1 {{ button.class or '' }}"
-          t-att-value="button.text or button.value"
-          t-on-click="() => this.onClick(button.value)"
-          t-att-disabled="button.disabled"
-          t-esc="button.text or button.value"  class="bg-200"/>
-      </t>
-    </div>
-  </t>
+    <t t-name="pos_calculator.CalculatorNumpad">
+        <div class="calculator-container">
+            <div class="input-symbol mb-3">
+                <input type="text"
+                       class="popup-input form-control form-control-lg text-center"
+                       t-att-value="state.buffer"
+                       t-on-input="(ev) => this.handleInput(ev)"
+                       t-on-keydown="(ev) => this.handleKeyDown(ev)"
+                       autocomplete="off"
+                       inputmode="numeric"
+                       autofocus="true"/>
+            </div>
+            <div t-attf-class="d-grid numpad" style="grid-template-columns: repeat(4, 1fr);">
+                <t t-foreach="buttons" t-as="button" t-key="button.value">
+                    <span t-if="Object.keys(button).length === 0"/>
+                    <button
+                        t-else=""
+                        t-attf-class="numpad-button btn p-1 rounded-10 btn-light btn-lg fs-3 lh-lg m-1"
+                        t-att-value="button.text or button.value"
+                        t-on-click="() => this.onClick(button.value)"
+                        t-att-disabled="button.disabled"
+                        t-esc="button.text or button.value"
+                        t-att-style="button.style"/>
+                </t>
+            </div>
+        </div>
+    </t>
 </templates>
