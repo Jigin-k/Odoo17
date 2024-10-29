@@ -6,6 +6,13 @@
         <field name="priority">100</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="return_confirm" string="Confirm"
+                            class="oe_highlight"
+                            type="object" invisible="state != 'draft'"/>
+                     <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirm,done"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
@@ -23,6 +30,19 @@
                             <field name="product_id"/>
                             <field name="quantity"/>
                         </group>
+                    </group>
+                    <group>
+                        <notebook>
+                            <page string="Reason" name="reason">
+                                <field name="reason"/>
+                            </page>
+                            <page string="Transfers" name="stock_move">
+                                <field name="source_pick"/>
+                            </page>
+<!--                            <page string="Return Picking" name="return_picking">-->
+<!--                                <field name="stock_picking"/>-->
+<!--                            </page>-->
+                        </notebook>
                     </group>
                 </sheet>
             </form>
