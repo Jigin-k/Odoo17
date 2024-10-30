@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Inherit the existing stock delivery report -->
+    <template id="report_delivery_document_inherited" inherit_id="stock.report_delivery_document">
+        <xpath expr="//h2" position="before">
+            <t t-if="o.not_ship_yet_picking">
+                <div style="
+                    color: red;
+                    font-size: 48px;
+                    font-weight: bold;
+                    text-align: center;
+                    border: 5px solid red;
+                    padding: 20px;
+                    margin-bottom: 20px;">
+                    DO NOT DELIVER
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

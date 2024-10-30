@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="crm_case_tree_view_inherited" model="ir.ui.view">
+        <field name="name">crm.lead.tree.salesperson.filter</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+            <list js_class="crm_salesperson_list">
+<!--                <attribute name="js_class">crm_salesperson_list</attribute>-->
+            </list>
+        </field>
+    </record>
+
+
+</odoo>

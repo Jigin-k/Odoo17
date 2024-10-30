@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="tree_view.CrmSalespersonFilter">
+        <div class="o_salesperson_filter d-flex align-items-center mx-3">
+            <label class="mb-0 mr-2">Salesperson:</label>
+            <select class="js_salesperson_filter form-control w-auto">
+                <option value="all">All Salespersons</option>
+<!--                <t t-foreach="salespersons" t-as="user" t-key="user.index">-->
+<!--                    <option t-att-value="user.id">-->
+<!--                        <t t-esc="user.name"/>-->
+<!--                    </option>-->
+<!--&lt;!&ndash;                </t>&ndash;&gt;-->
+            </select>
+        </div>
+    </t>
+</templates>
