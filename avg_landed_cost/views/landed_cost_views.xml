@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_stock_landed_cost_form_inherit" model="ir.ui.view">
+            <field name="name">stock.landed.cost.form.inherit</field>
+            <field name="model">stock.landed.cost</field>
+            <field name="inherit_id"
+                   ref="stock_landed_costs.view_stock_landed_cost_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='valuation_adjustments']/field[@name='valuation_adjustment_lines']"
+                       position="after">
+                    <button name="compute_avg_landed_cost"
+                            string="Compute Avg LC" type="object"
+                            class="float-end btn-secondary"/>
+
+                    <h2>Average Landed Cost</h2>
+                    <field name="avg_landed_cost_lines">
+                        <list string="Average Landed Cost" editable="bottom"
+                              create="0">
+                            <field name="product_id"/>
+                            <field name="avg_landed_cost"/>
+
+                        </list>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
