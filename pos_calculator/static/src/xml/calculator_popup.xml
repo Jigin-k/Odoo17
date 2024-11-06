@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<templates id="template" xml:space="preserve">
-    <t t-name="pos_calculator.Calculator_popup">
-        <Dialog title="props.title" bodyClass="'d-flex flex-column justify-content-center'" size="'sm'">
-            <CalculatorNumpad buttons="props.buttons" />
-        </Dialog>
-    </t>
-</templates>
