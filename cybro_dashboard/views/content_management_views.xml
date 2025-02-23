@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dashboard View -->
+    <record id="view_training_video_dashboard" model="ir.ui.view">
+        <field name="name">training.video.dashboard</field>
+        <field name="model">training.video</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_kanban_dashboard">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="video_type"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record">
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_card_header">
+                                    <div class="o_primary">
+                                        <strong>
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_card_content">
+                                    <div class="row">
+                                        <strong>Type:</strong>
+                                        <field name="video_type"/>
+                                    </div>
+                                        <strong>Status:</strong>
+                                        <field name="state"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_training_video_form" model="ir.ui.view">
+        <field name="name">training.video.form</field>
+        <field name="model">training.video</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Video Title"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="video_type"/>
+                        </group>
+                        <group>
+                            <field name="url"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_training_video_tree" model="ir.ui.view">
+        <field name="name">training.video.tree</field>
+        <field name="model">training.video</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="video_type"/>
+                <field name="upload_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_training_video_search" model="ir.ui.view">
+        <field name="name">training.video.search</field>
+        <field name="model">training.video</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <filter string="Functional" name="functional" domain="[('video_type', '=', 'functional')]"/>
+                <filter string="Technical" name="technical" domain="[('video_type', '=', 'technical')]"/>
+                <separator/>
+                <filter string="Published" name="published" domain="[('state', '=', 'published')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Video Type" name="group_by_type" context="{'group_by': 'video_type'}"/>
+                    <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_functional_videos" model="ir.actions.act_window">
+        <field name="name">Functional Videos</field>
+        <field name="res_model">training.video</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('video_type', '=', 'functional')]</field>
+        <field name="context">{'default_video_type': 'functional'}</field>
+    </record>
+
+    <record id="action_technical_videos" model="ir.actions.act_window">
+        <field name="name">Technical Videos</field>
+        <field name="res_model">training.video</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('video_type', '=', 'technical')]</field>
+        <field name="context">{'default_video_type': 'technical'}</field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_training_videos_root"
+              name="Social Media Management"
+              sequence="10"/>
+
+    <menuitem id="menu_all_videos"
+              name=" Videos"
+              parent="menu_training_videos_root"
+              sequence="10"/>
+
+    <!--    <menuitem id="menu_videos_by_type"-->
+    <!--              name="Videos by Type"-->
+    <!--              parent="menu_training_videos_root"-->
+    <!--              sequence="20"/>-->
+
+    <menuitem id="menu_functional_videos"
+              name="Functional Videos"
+              parent="menu_all_videos"
+              action="action_functional_videos"
+              sequence="10"/>
+
+    <menuitem id="menu_technical_videos"
+              name="Technical Videos"
+              parent="menu_all_videos"
+              action="action_technical_videos"
+              sequence="20"/>
+</odoo>

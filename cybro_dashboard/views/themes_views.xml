@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_theme_management_form" model="ir.ui.view">
+        <field name="name">theme.management.form</field>
+        <field name="model">theme.management</field>
+        <field name="arch" type="xml">
+            <form string="Theme Management">
+                <sheet>
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,published,unpublished"
+                               options="{'clickable': '1'}"/>
+                    </header>
+                    <group>
+                        <field name="name"/>
+                        <field name="version"/>
+                        <field name="developer_id"/>
+                        <field name="price"/>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" widget="html"/>
+                        </page>
+                        <page string="Preview">
+                            <field name="preview_url"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_theme_management_tree" model="ir.ui.view">
+        <field name="name">theme.management.tree</field>
+        <field name="model">theme.management</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="version"/>
+                <field name="developer_id"/>
+                <field name="state" widget="badge" decoration-danger="state == 'archived'"
+                       decoration-success="state == 'published'"
+                       decoration-warning="state == 'draft'"/>
+            </list>
+        </field>
+    </record>
+
+
+    <record id="view_pivot_theme_management" model="ir.ui.view">
+        <field name="name">theme.management.pivot</field>
+        <field name="model">theme.management</field>
+        <field name="arch" type="xml">
+            <pivot string="Theme Analysis">
+                <field name="developer_id" type="row"/>
+                <field name="state" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_theme_management" model="ir.actions.act_window">
+        <field name="name">Themes</field>
+        <field name="res_model">theme.management</field>
+        <field name="view_mode">list,form,pivot</field>
+    </record>
+
+
+    <menuitem id="menu_theme_management" name="Themes" parent="menu_app_management_root" sequence="20" action="action_theme_management"/>
+</odoo>

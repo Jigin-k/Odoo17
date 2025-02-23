@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_app_management,access.app.management,model_app_management,base.group_user,1,1,1,1
+access_app_category,access.app.category,model_app_category,base.group_user,1,1,1,1
+access_app_version,access.app.version,model_app_version,base.group_user,1,1,1,1
+access_blog_management,access.blog.management,model_blog_management,base.group_user,1,1,1,1
+access_blog_category,access.blog.category,model_blog_category,base.group_user,1,1,1,1
+access_theme_management,access.theme.management,model_theme_management,base.group_user,1,1,1,1
+access_training_video_user,training.video.user,model_training_video,base.group_user,1,1,1,1
+

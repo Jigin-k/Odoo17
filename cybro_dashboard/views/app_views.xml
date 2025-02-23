@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- App Management Form View -->
+    <record id="view_form_app_management" model="ir.ui.view">
+        <field name="name">app.management.form</field>
+        <field name="model">app.management</field>
+        <field name="arch" type="xml">
+            <form string="App Management">
+                <sheet>
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,published,unpublished"
+                               options="{'clickable': '1'}"/>
+                    </header>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="version_id"/>
+                            <field name="developer_id"/>
+                            <field name="pricing"/>
+                            <field name="price"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="published_date"/>
+                            <field name="category_id"/>
+                            <field name="download_url"/>
+                        </group>
+                    </group>
+                </sheet>
+           <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- App Management Tree View -->
+    <record id="view_tree_app_management" model="ir.ui.view">
+        <field name="name">app.management.tree</field>
+        <field name="model">app.management</field>
+        <field name="arch" type="xml">
+            <list string="App Management" >
+                <field name="name"/>
+                <field name="version_id"/>
+                <field name="category_id"/>
+                <field name="developer_id"/>
+                <field name="pricing"/>
+                <field name="price"/>
+                <field name="state"  widget="badge" decoration-danger="state == 'unpublished'"
+                       decoration-success="state == 'published'"
+                       decoration-warning="state == 'draft'"/>
+            </list>
+        </field>
+    </record>
+
+       <record id="app_search_view" model="ir.ui.view">
+    <field name="name">app.management.search.view</field>
+    <field name="model">app.management</field>
+    <field name="arch" type="xml">
+        <search string="Search App">
+            <group expand="0" string="Group By">
+                <filter string="Developer" name="group_by_developer" domain="[]" context="{'group_by': 'developer_id'}"/>
+                <filter string="Publish Date" name="group_by_date" domain="[]" context="{'group_by': 'published_date'}"/>
+                <filter string="Pricing" name="group_by_pricing" domain="[]" context="{'group_by': 'pricing'}"/>
+                <filter string="Status" name="group_by_state" domain="[]"  context="{'group_by': 'state'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
+    <!-- App Management Pivot View -->
+    <record id="view_pivot_app_management" model="ir.ui.view">
+        <field name="name">app.management.pivot</field>
+        <field name="model">app.management</field>
+        <field name="arch" type="xml">
+            <pivot string="App Management Analysis">
+                <field name="category_id" type="row"/>
+                <field name="developer_id" type="row"/>
+                <field name="pricing" type="row"/>
+                <field name="state" type="row"/>
+                <field name="price" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- App Management Action -->
+    <record id="action_app_management" model="ir.actions.act_window">
+        <field name="name">Apps</field>
+        <field name="res_model">app.management</field>
+        <field name="view_mode">list,form,pivot</field>
+    </record>
+
+    <!-- App Management Menu -->
+    <menuitem id="menu_app_management_root" name="Assets Management" sequence="10" action="action_app_management"/>
+
+    <menuitem id="menu_app_management" name="Apps" parent="menu_app_management_root"
+              action="action_app_management" sequence="10"/>
+</odoo>

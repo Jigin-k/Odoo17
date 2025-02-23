@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+   <t t-name="cybro_stats.CybroDashboard">
+    <div class="dashboard-container d-flex flex-column" style="height: 100vh; background-color: #f8f9fa;">
+        <header class="py-3 px-4 border-bottom" style="background-color: #e9ecef; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <h1 class="h3 mb-0 text-primary fw-bold">Cybrosys Dashboard</h1>
+        </header>
+        <div class="flex-grow-1 d-flex flex-column p-3 overflow-auto">
+            <div class="card mx-auto mb-4 border-0" style="width: 300px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); background-color: #e9ecef; color: #000000;">
+                <div class="card-body">
+                    <h6 class="card-title mb-3 fw-bold fs-5">Compare Periods</h6>
+                    <input type="date" id="compareDate" class="form-control form-control-sm mb-2 fw-medium" t-att-value="selectedDate" t-on-change="onDateChange"/>
+                    <button id="submitCompareDate" class="btn btn-sm btn-primary flex-grow-1 fw-medium" t-on-click="onSubmitCompareDateClick">Compare</button>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column">
+                <div class="card mb-4 border-0" style="box-shadow: 0 4px 8px rgba(0,0,0,0.08); max-width: 100vh; width: 100%; margin: auto; background-color: #e9ecef; color: #000000;">
+                    <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center py-3">
+                        <h5 class="mb-0 fw-bold fs-4">
+                            <t t-if="Object.keys(state.metrics_data).length >= 2">
+                                <t t-out="state.metrics_data[Object.keys(state.metrics_data)[0]]"/> - <t t-out="state.metrics_data[Object.keys(state.metrics_data)[1]]"/>
+                            </t>
+                        </h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive" style="max-height: 60vh;">
+                            <table class="table table-hover mb-0" style="background-color: #ffffff;">
+                                <thead class="sticky-top" style="background-color: #e0e0e0; z-index: 100;">
+                                    <tr>
+                                        <th class="py-3 px-4 fw-bold fs-5">Metric</th>
+                                        <th class="py-3 px-4 text-center fw-bold fs-5">Current Value</th>
+                                        <th t-if="state.comparisonData" class="py-3 px-4 text-center fw-bold fs-5">
+                                            <t t-if="Object.keys(state.comparisonData).length >= 2">
+                                                <t t-out="state.comparisonData[Object.keys(state.comparisonData)[0]]"/> - <t t-out="state.comparisonData[Object.keys(state.comparisonData)[1]]"/>
+                                            </t>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="storage">
+                                    <t t-foreach="Object.keys(state.metrics_data).slice(2)" t-as="key" t-key="key_index">
+                                        <tr>
+                                            <td class="py-3 px-4 fw-bold fs-6"><t t-out="key"/></td>
+                                            <td class="py-3 px-4 text-center">
+                                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                                    <span class="fw-bold fs-6"><t t-esc="state.metrics_data[key]"/></span>
+                                                    <t t-if="state.comparisonData[key] !== undefined">
+                                                        <t t-set="currentValue" t-value="state.metrics_data[key]"/>
+                                                        <t t-set="comparisonValue" t-value="state.comparisonData[key]"/>
+                                                        <t t-set="difference" t-value="currentValue - comparisonValue"/>
+                                                        <t t-set="percentageDifference" t-value="((difference / comparisonValue) * 100).toFixed(2)"/>
+                                                        <span t-if="difference &gt; 0" class="text-success d-flex align-items-center fw-bold">
+                                                            <i class="fa fa-arrow-up me-1" aria-hidden="true"></i> <t t-esc="percentageDifference"/>%
+                                                        </span>
+                                                        <span t-if="difference &lt; 0" class="text-danger d-flex align-items-center fw-bold">
+                                                            <i class="fa fa-arrow-down me-1" aria-hidden="true"></i> <t t-esc="percentageDifference"/>%
+                                                        </span>
+                                                    </t>
+                                                </div>
+                                            </td>
+                                            <td t-if="state.comparisonData" class="py-3 px-4 text-center fw-bold fs-6"><t t-esc="state.comparisonData[key] || 'N/A'"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div t-if="state.comparisonData" class="card border-0 mb-4 mx-auto" style="width: 800px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); background-color: #e9ecef; color: #000000;">
+                <div class="card-body">
+                    <h6 class="card-title mb-3 fw-bold fs-5">Metric Comparison</h6>
+                    <select id="metricSelector" class="form-select form-select-sm mb-4 fw-medium" t-on-change="onMetricChange" t-model="state.metricsFilter">
+                        <option value="" class="fw-medium">-- Select Metric --</option>
+                        <t t-foreach="Object.keys(state.metrics_data).slice(2)" t-as="key" t-key="key_index">
+                            <option class="fw-medium"><t t-out="key"/></option>
+                        </t>
+                    </select>
+                    <div class="mt-3 d-flex justify-content-center">
+                        <canvas t-ref="chartRef" style="width: 100%; height: 260px;"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="card border-0 mx-auto mb-4" style="width: 800px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); background-color: #e9ecef; color: #000000;">
+                <div class="card-body">
+                    <h6 class="card-title mb-3 fw-bold fs-5">Metric Progress Over Time</h6>
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        <div class="flex-grow-1">
+                            <label for="startDate" class="form-label fw-bold">Start Date</label>
+                            <input type="date" id="startDate" class="form-control form-control-sm fw-medium" t-model="state.startDate"/>
+                        </div>
+                        <div class="flex-grow-1">
+                            <label for="endDate" class="form-label fw-bold">End Date</label>
+                            <input type="date" id="endDate" class="form-control form-control-sm fw-medium" t-model="state.endDate"/>
+                        </div>
+                        <div class="flex-grow-1">
+                            <label for="lineMetricSelector" class="form-label fw-bold">Metric</label>
+                            <select id="lineMetricSelector" class="form-select form-select-sm fw-medium" t-model="state.lineMetricsFilter">
+                                <option value="" class="fw-medium">-- Select Metric --</option>
+                                <t t-foreach="Object.keys(state.metrics_data).slice(2)" t-as="key" t-key="key_index">
+                                    <option class="fw-medium"><t t-out="key"/></option>
+                                </t>
+                            </select>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button id="applyDate" class="btn btn-sm btn-primary flex-grow-1 fw-medium" t-on-click="onApplyDateClick">Apply</button>
+                        </div>
+                    </div>
+                    <div class="mt-3" style="height: 300px;">
+                        <canvas t-ref="lineChartRef" style="width: 100%; height: 100%;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</t>
+</templates>

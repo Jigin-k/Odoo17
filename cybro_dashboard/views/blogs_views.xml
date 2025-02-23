@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_blog_management_form" model="ir.ui.view">
+        <field name="name">blog.management.form</field>
+        <field name="model">blog.management</field>
+        <field name="arch" type="xml">
+            <form string="Blog Management">
+                <sheet>
+                     <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,published,unpublished"
+                               options="{'clickable': '1'}"/>
+                    </header>
+                    <group>
+                        <field name="name"/>
+                        <field name="author_id"/>
+                        <field name="category_id"/>
+                        <field name="published_date"/>
+=                    </group>
+                    <notebook>
+                        <page string="Content">
+                            <field name="content" widget="html"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_blog_management_tree" model="ir.ui.view">
+        <field name="name">blog.management.tree</field>
+        <field name="model">blog.management</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="author_id"/>
+                <field name="published_date"/>
+                <field name="state"  widget="badge" decoration-danger="state == 'archived'"
+                       decoration-success="state == 'published'"
+                       decoration-warning="state == 'draft'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_pivot_blog_management" model="ir.ui.view">
+        <field name="name">blog.management.pivot</field>
+        <field name="model">blog.management</field>
+        <field name="arch" type="xml">
+            <pivot string="Blog Analysis">
+<!--                <field name="category_id" type="row"/>-->
+                <field name="author_id" type="row"/>
+                <field name="state" type="row"/>
+<!--                <field name="id" type="measure" string="Count"/>-->
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_blog_management" model="ir.actions.act_window">
+        <field name="name">Blogs</field>
+        <field name="res_model">blog.management</field>
+        <field name="view_mode">list,form,pivot</field>
+    </record>
+
+    <menuitem id="menu_blog_list" name="Blogs" parent="menu_app_management_root" action="action_blog_management"/>
+</odoo>

@@ -1,0 +1,51 @@
+<odoo>
+    <record id="view_form_hr_employee" model="ir.ui.view">
+        <field name="name">hr.employee.form.view</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='department_id']" position="after">
+                <!--                    <field name="employee_type"/>-->
+                <field name="trainee_join_date"/>
+                <field name="conversion_date"/>
+                <!--                    <field name="resignation_date"/>-->
+                <field name="notice_period_start_date"/>
+                <field name="notice_period_end_date"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <field name="state" widget="statusbar"/>
+                <button name="action_convert_to_employee"
+                        string="Convert to Employee"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-user"
+                        invisible="state != 'trainee'"
+                />
+                <!--                <button name="action_submit_resignation"-->
+                <!--                        string="Submit Resignation"-->
+                <!--                        type="object"-->
+                <!--                        class="oe_stat_button"-->
+                <!--                        icon="fa-sign-out"-->
+                <!--                        invisible="state != 'employee'"-->
+                <!--                        />-->
+            </xpath>
+
+
+        </field>
+    </record>
+
+    <record id="view_form_hr_employee_resignation" model="ir.ui.view">
+        <field name="name">hr.departure.wizard.form.view</field>
+        <field name="model">hr.departure.wizard</field>
+        <field name="inherit_id" ref="hr.hr_departure_wizard_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='departure_reason_id']" position="after">
+                <field name="resignation_date"/>
+                <field name="notice_period_days"/>
+
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="dashboard_action" model="ir.actions.client">
+        <field name="name">Cybro Dashboard</field>
+        <field name="tag">cybro_dashboard_tag</field>
+    </record>
+    <!-- Tree View -->
+    <record id="view_company_metrics_tree" model="ir.ui.view">
+        <field name="name">cybro.stats.tree</field>
+        <field name="model">cybro.stats</field>
+        <field name="arch" type="xml">
+            <list string="Company Metrics" decoration-info="date == context_today()">
+                <field name="name"/>
+                <field name="date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_company_metrics_form" model="ir.ui.view">
+        <field name="name">cybro.stats.form</field>
+        <field name="model">cybro.stats</field>
+        <field name="arch" type="xml">
+            <form string="Company Metrics">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(dashboard_action)d" type="action"
+                                class="oe_stat_button"
+                                icon="fa-bar-chart">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Dashboard</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g. January 2025 Metrics"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                    </group>
+
+                    <!-- Digital Assets Section -->
+                    <separator string="Digital Assets"/>
+                    <group>
+                        <group>
+                            <field name="new_apps_published"/>
+                            <field name="new_blogs_published"/>
+                            <field name="new_themes_published"/>
+                        </group>
+                        <group>
+                            <field name="new_functional_videos"/>
+                            <field name="new_technical_videos"/>
+                            <field name="new_reels"/>
+                        </group>
+                    </group>
+
+                    <!-- Human Resources Section -->
+                    <separator string="Human Resources"/>
+                    <group>
+                        <group>
+                            <field name="employees_joined"/>
+                            <field name="employees_on_notice"/>
+                            <field name="employees_resigned"/>
+                        </group>
+                        <group>
+                            <field name="current_trainees"/>
+                            <field name="trainees_resigned"/>
+                        </group>
+                    </group>
+
+                    <!-- Business & Financial Section -->
+                    <separator string="Business/Financial"/>
+                    <group>
+                        <group>
+                            <field name="new_billings"/>
+                            <field name="new_success_packs"/>
+                            <field name="new_projects"/>
+                            <field name="lost_billing"/>
+                        </group>
+                        <group>
+                            <field name="profit" widget="monetary"/>
+                            <field name="account_balance" widget="monetary"/>
+                            <field name="total_payable" widget="monetary"/>
+                            <field name="total_receivables" widget="monetary"/>
+                            <field name="total_income" widget="monetary"/>
+                            <field name="total_expenses" widget="monetary"/>
+                        </group>
+                    </group>
+
+                    <!-- Marketing & Sales Section -->
+                    <separator string="Marketing/Sales"/>
+                    <group>
+                        <group>
+                            <field name="total_leads"/>
+                            <field name="total_demos"/>
+                            <field name="total_requirements"/>
+                        </group>
+                        <group>
+                            <field name="website_traffic"/>
+                            <field name="new_youtube_subscribers"/>
+                            <field name="new_insta_followers"/>
+                        </group>
+                    </group>
+
+                    <!-- Other Metrics Section -->
+                    <separator string="Other Metrics"/>
+                    <group>
+                        <group>
+                            <field name="campus_connect"/>
+                        </group>
+                        <group>
+                            <field name="working_laptops"/>
+                        </group>
+                    </group>
+                </sheet>
+                <!--            <div class="oe_chatter">-->
+                <!--                <field name="message_follower_ids" widget="mail_followers"/>-->
+                <!--                <field name="activity_ids" widget="mail_activity"/>-->
+                <!--                <field name="message_ids" widget="mail_thread"/>-->
+                <!--            </div>-->
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_company_metrics_kanban" model="ir.ui.view">
+        <field name="name">cybro.stats.kanban</field>
+        <field name="model">cybro.stats</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="profit"/>
+                <field name="new_projects"/>
+                <field name="total_leads"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <div>
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <div class="text-muted">
+                                    <field name="date"/>
+                                </div>
+                                <div class="row mt16 mb16">
+                                    <div class="col-6">
+                                        <strong>Profit</strong>
+                                        <p>
+                                            <field name="profit" widget="monetary"/>
+                                        </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <strong>New Projects</strong>
+                                        <p>
+                                            <field name="new_projects"/>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Leads</strong>
+                                        <p>
+                                            <field name="total_leads"/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="action_company_metrics" model="ir.actions.act_window">
+        <field name="name">Company Stats</field>
+        <field name="res_model">cybro.stats</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_company_metrics_root" name="Company Stats"/>
+    <menuitem id="menu_company_metrics" name="Metrics" parent="menu_company_metrics_root" sequence="10"
+              action="action_company_metrics"/>
+</odoo>

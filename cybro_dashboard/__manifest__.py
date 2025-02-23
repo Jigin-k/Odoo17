@@ -1,0 +1,22 @@
+{
+    'name': 'Cybrosys Dasboard',
+    'version': '18.0.1.0.0',
+    'summary': """ Complete Management of Odoo Web Assets""",
+    'author': 'Cybrosys Techno Solutions',
+    'company': 'Cybrosys Techno Solutions',
+    'maintainer': 'Cybrosys Techno Solutions',
+    'website': 'https://www.cybrosys.com',
+    'depends': ['base', 'web', 'mail','hr'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/app_views.xml',
+        'views/blogs_views.xml',
+        'views/themes_views.xml',
+        'views/employee_views.xml',
+        'views/content_management_views.xml',
+    ],
+    # 'license': 'LGPL-3',
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}
