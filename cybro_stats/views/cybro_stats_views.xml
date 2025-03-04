@@ -187,7 +187,9 @@
     </record>
 
     <!-- Menu -->
-    <menuitem id="menu_company_metrics_root" name="Company Stats"/>
+    <menuitem id="menu_company_metrics_root" name="Company Stats" action="dashboard_action"/>
+    <menuitem id="menu_company_dashboard" name="Dashboard" parent="menu_company_metrics_root" sequence="9"
+              action="dashboard_action"/>
     <menuitem id="menu_company_metrics" name="Metrics" parent="menu_company_metrics_root" sequence="10"
               action="action_company_metrics"/>
 </odoo>
